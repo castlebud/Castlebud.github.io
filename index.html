@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script id='sonic_js' data-port='8004' src='https://sonic.sistemahost.es/cp/widgets.js?r=106'></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Secreto Musical - Radio Online</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  <!-- Favicon -->
+  <link rel="icon" href="https://i.imgur.com/0v4rgom.png" type="image/png">
+  <style>
+    :root {
+      --dark-bg: #121212;
+      --dark-gray: #1e1e1e;
+      --light-gray: #2d2d2d;
+      --neon-turquoise: #00f5d4;
+      --neon-pink: #ff0080;
+      --text-light: #f0f0f0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background-image: url('https://i.imgur.com/2mU62ak.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    .overlay {
+      background-color: rgba(8, 6, 12, 0.65);
+      min-height: 100vh;
+      padding-bottom: 2rem;
+    }
+
+    header {
+      background-color: #19171e;
+      padding: 1.5rem 2rem 1rem;
+      text-align: center;
+      border-bottom: 2px solid var(--neon-turquoise);
+      position: relative;
+    }
+
+    /* Estilo del título (usado cuando no hay imagen) */
+    .header-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--text-light);
+      letter-spacing: 1.2px;
+      text-shadow: 0 0 12px rgba(0, 245, 212, 0.7);
+      margin-bottom: 1.2rem;
+    }
+
+    /* Estilo del logo/banner */
+    .header-logo {
+      margin-bottom: 1.2rem;
+    }
+    .header-logo img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(0, 245, 212, 0.5);
+    }
+
+    .header-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .toggle-chat-btn,
+    .toggle-schedule-btn {
+      background-color: rgba(0, 245, 212, 0.15);
+      color: white;
+      border: 1px solid var(--neon-turquoise);
+      padding: 0.5rem 1.1rem;
+      border-radius: 24px;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 8px rgba(0, 245, 212, 0.4);
+      box-shadow: 
+        0 0 10px rgba(0, 245, 212, 0.3),
+        0 0 18px rgba(0, 245, 212, 0.2);
+    }
+
+    .toggle-chat-btn:hover,
+    .toggle-schedule-btn:hover {
+      background-color: rgba(0, 245, 212, 0.25);
+      box-shadow: 
+        0 0 14px rgba(0, 245, 212, 0.5),
+        0 0 24px rgba(0, 245, 212, 0.4);
+    }
+
+    .player-container {
+      padding: 2.5rem 2rem;
+      text-align: center;
+      background-color: rgba(40, 38, 48, 0.78);
+      margin: 2.5rem auto;
+      max-width: 700px;
+      border-radius: 18px;
+      border: 3px solid var(--neon-pink);
+      backdrop-filter: blur(6px);
+      box-shadow: 
+        0 0 20px rgba(255, 0, 128, 0.6),
+        0 0 30px rgba(255, 0, 128, 0.4);
+    }
+
+    .player-container h2 {
+      margin-bottom: 1.2rem;
+      color: white;
+      font-size: 1.8rem;
+      text-shadow: 0 0 12px rgba(255, 0, 128, 0.8);
+    }
+
+    #sonic_dj {
+      margin-top: 1.4rem;
+      font-size: 1.5rem;
+      color: white;
+      text-align: center;
+      text-shadow: 0 0 10px rgba(255, 0, 128, 0.7);
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    #dj_profile {
+      margin-top: 1.4rem;
+      padding: 1.2rem;
+      background-color: rgba(20, 18, 26, 0.7);
+      border: 2px solid #fff01a;
+      border-radius: 14px;
+      color: white;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1.1rem;
+      text-align: center;
+      line-height: 1.5;
+      box-shadow:
+        0 0 12px rgba(255, 240, 26, 0.6),
+        0 0 20px rgba(255, 240, 26, 0.4);
+      backdrop-filter: blur(4px);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: white;
+      font-size: 2rem;
+      text-shadow: 0 0 12px rgba(0, 245, 212, 0.8);
+    }
+
+    .chat-container {
+      display: none;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      background-color: rgba(30, 28, 38, 0.85);
+      border: 2px solid var(--neon-turquoise);
+      border-radius: 16px;
+      padding: 1.6rem;
+      box-shadow:
+        0 0 18px rgba(0, 245, 212, 0.4),
+        0 0 30px rgba(0, 245, 212, 0.6);
+      backdrop-filter: blur(6px);
+      font-size: 1.02rem;
+      line-height: 1.6;
+    }
+
+    .chat-container h3 {
+      color: white;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px rgba(0, 245, 212, 0.5);
+    }
+
+    .chat-container a {
+      color: var(--neon-turquoise);
+      text-decoration: none;
+    }
+
+    .chat-container a:hover {
+      text-decoration: underline;
+    }
+
+    .schedule-week {
+      padding: 2rem;
+    }
+
+    .days-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.6rem;
+    }
+
+    .day-container {
+      background-color: rgba(40, 38, 48, 0.75);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid rgba(0, 245, 212, 0.3);
+      backdrop-filter: blur(4px);
+      box-shadow:
+        0 0 14px rgba(0, 245, 212, 0.35),
+        0 0 24px rgba(0, 245, 212, 0.5);
+    }
+
+    .day-title {
+      color: var(--neon-turquoise);
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      text-shadow: 0 0 8px rgba(0, 245, 212, 0.4);
+    }
+
+    .program-slot {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid #3a3a3a;
+    }
+
+    .program-slot:last-child {
+      border-bottom: none;
+    }
+
+    .program-slot img {
+      width: 24px;
+      height: auto;
+      border-radius: 3px;
+    }
+
+    .program-slot div {
+      flex: 1;
+    }
+
+    .program-slot strong {
+      color: white;
+      font-size: 1.05rem;
+    }
+
+    .carousel-section {
+      padding: 2rem;
+      overflow: hidden;
+    }
+
+    .carousel {
+      display: flex;
+      animation: scroll 25s linear infinite;
+      width: calc(280px * 12);
+      margin: 0 auto;
+    }
+
+    .carousel:hover {
+      animation-play-state: paused;
+    }
+
+    .carousel-item {
+      width: 260px;
+      height: 180px;
+      margin-right: 20px;
+      border-radius: 14px;
+      flex-shrink: 0;
+      overflow: hidden;
+      box-shadow: 0 0 14px rgba(0, 245, 212, 0.7);
+      border: 2px solid var(--neon-turquoise);
+    }
+
+    .carousel-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc(-280px * 6)); }
+    }
+
+    .news-section {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .news-container {
+      background-color: rgba(40, 38, 48, 0.75);
+      padding: 1.8rem;
+      border-radius: 16px;
+      max-width: 700px;
+      width: 90%;
+      border: 2px solid var(--neon-turquoise);
+      box-shadow: 0 0 16px rgba(0, 245, 212, 0.5);
+      backdrop-filter: blur(4px);
+    }
+
+    .news-item {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid #3a3a3a;
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+
+    .news-item:last-child {
+      border-bottom: none;
+    }
+
+    .news-item strong {
+      color: var(--neon-turquoise);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    footer {
+      background-color: #14121a;
+      padding: 1.6rem;
+      text-align: center;
+      border-top: 1px solid var(--neon-turquoise);
+      margin-top: 2.5rem;
+    }
+
+    footer p {
+      margin: 0.4rem 0;
+      font-size: 1.05rem;
+    }
+
+    @media (max-width: 900px) {
+      .days-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .days-grid {
+        grid-template-columns: 1fr;
+      }
+      .header-title {
+        font-size: 2.2rem;
+      }
+      .header-logo img {
+        max-height: 100px;
+      }
+      .header-buttons {
+        gap: 0.8rem;
+        flex-direction: column;
+        align-items: center;
+      }
+      .toggle-chat-btn,
+      .toggle-schedule-btn {
+        width: 90%;
+        max-width: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay">
+
+    <header>
+      <!-- 
+      <div class="header-logo">
+        <img src="https://tu-dominio.com/banner.png" alt="Secreto Musical">
+      </div>
+      -->
+
+      <h1 class="header-title">Secreto Musical</h1>
+
+      <div class="header-buttons">
+        <button id="toggleChatBtn" class="toggle-chat-btn">Chat</button>
+        <button id="toggleScheduleBtn" class="toggle-schedule-btn">Programación</button>
+      </div>
+    </header>
+
+    <section class="player-container">
+      <!--<h2>Escucha en vivo</h2>-->
+      <iframe 
+        src="https://sonic.sistemahost.es/cp/widgets/player/single/?p=8004" 
+        height="110" 
+        width="100%" 
+        scrolling="no" 
+        style="border: none; max-width: 500px; margin: 0.5rem auto; display: block;">
+      </iframe>
+      <div id="sonic_dj"></div>
+      <div id="dj_profile"></div>
+    </section>
+
+    <div id="chatContainer" class="chat-container">
+      <h3>💬 Chat</h3>
+      <iframe src="https://chat.chatzona.org/index.html#nick=&channel=SecretoMusical" width="100%" height="500" frameborder="0"></iframe>
+    </div>
+
+    <section id="weeklySchedule" class="schedule-week" style="display: none;">
+      <h2 class="section-title">Programación Semanal</h2>
+      <div class="days-grid">
+        <div class="day-container">
+          <h3 class="day-title">Lunes</h3>
+          <div class="program-slot">
+            <img src="https://flagcdn.com/w20/es.png" alt="España">
+            <div>
+              <strong>8:00 - 10:00</strong><br>DJ Buddy
+            </div>
+          </div>
+          <div class="program-slot">
+            <img src="https://flagcdn.com/w20/es.png" alt="España">
+            <div>
+              <strong>10:00 - 12:00</strong><br>DJ Duque
+            </div>
+          </div>
+          <div class="program-slot">
+            <img src="https://flagcdn.com/w20/es.png" alt="España">
+            <div>
+              <strong>12:00 - 14:00</strong><br>DJ Luna
+            </div>
+          </div>
+        </div>
+        <div class="day-container">
+          <h3 class="day-title">Martes</h3>
+          <div class="program-slot">
+            <img src="https://flagcdn.com/w20/es.png" alt="España">
+            <div>
+              <strong>8:00 - 10:00</strong><br>DJ Sol
+            </div>
+          </div>
+          <div class="program-slot">
+            <img src="https://flagcdn.com/w20/es.png" alt="España">
+            <div>
+              <strong>10:00 - 12:00</strong><br>DJ Nova
+            </div>
+          </div>
+        </div>
+        <div class="day-container">
+          <h3 class="day-title">Miércoles</h3>
+          <div class="program-slot">
+            <img src="https://flagcdn.com/w20/es.png" alt="España">
+            <div>
+              <strong>8:00 - 10:00</strong><br>DJ Echo
+            </div>
+          </div>
+          <div class="program-slot">
+            <img src="https://flagcdn.com/w20/es.png" alt="España">
+            <div>
+              <strong>10:00 - 12:00</strong><br>DJ Pulse
+            </div>
+          </div>
+        </div>
+        <div class="day-container">
+          <h3 class="day-title">Jueves</h3>
+          <div class="program-slot">
+            <img src="https://flagcdn.com/w20/es.png" alt="España">
+            <div>
+              <strong>8:00 - 10:00</strong><br>DJ Ray
+            </div>
+          </div>
+          <div class="program-slot">
+            <img src="https://flagcdn.com/w20/es.png" alt="España">
+            <div>
+              <strong>10:00 - 12:00</strong><br>DJ Sky
+            </div>
+          </div>
+        </div>
+        <div class="day-container">
+          <h3 class="day-title">Viernes</h3>
+          <div class="program-slot">
+            <img src="https://flagcdn.com/w20/es.png" alt="España">
+            <div>
+              <strong>8:00 - 10:00</strong><br>DJ Star
+            </div>
+          </div>
+          <div class="program-slot">
+            <img src="https://flagcdn.com/w20/es.png" alt="España">
+            <div>
+              <strong>10:00 - 12:00</strong><br>DJ Moon
+            </div>
+          </div>
+        </div>
+        <div class="day-container">
+          <h3 class="day-title">Sábado</h3>
+          <div class="program-slot">
+            <img src="https://flagcdn.com/w20/es.png" alt="España">
+            <div>
+              <strong>10:00 - 12:00</strong><br>DJ Fiesta
+            </div>
+          </div>
+          <div class="program-slot">
+            <img src="https://flagcdn.com/w20/es.png" alt="España">
+            <div>
+              <strong>12:00 - 14:00</strong><br>DJ Party
+            </div>
+          </div>
+        </div>
+        <div class="day-container">
+          <h3 class="day-title">Domingo</h3>
+          <div class="program-slot">
+            <img src="https://flagcdn.com/w20/es.png" alt="España">
+            <div>
+              <strong>9:00 - 11:00</strong><br>DJ Relax
+            </div>
+          </div>
+          <div class="program-slot">
+            <img src="https://flagcdn.com/w20/es.png" alt="España">
+            <div>
+              <strong>11:00 - 13:00</strong><br>DJ Chill
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="carousel-section">
+      <h2 class="section-title">Nuestro Equipo</h2>
+      <div class="carousel">
+        <div class="carousel-item">
+          <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Auriculares">
+        </div>
+        <div class="carousel-item">
+          <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Vinilo">
+        </div>
+        <div class="carousel-item">
+          <img src="https://images.unsplash.com/photo-1614353786850-0c46f5f3e778?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Estudio de radio">
+        </div>
+        <div class="carousel-item">
+          <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Micrófono">
+        </div>
+        <div class="carousel-item">
+          <img src="https://images.unsplash.com/photo-1507838153590-1d088b75c5a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Mezcladora">
+        </div>
+        <div class="carousel-item">
+          <img src="https://i.imgur.com/0v4rgom.png" alt="Luces neón música">
+        </div>
+        <div class="carousel-item">
+          <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Auriculares">
+        </div>
+        <div class="carousel-item">
+          <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Vinilo">
+        </div>
+        <div class="carousel-item">
+          <img src="https://images.unsplash.com/photo-1614353786850-0c46f5f3e778?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Estudio de radio">
+        </div>
+        <div class="carousel-item">
+          <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Micrófono">
+        </div>
+        <div class="carousel-item">
+          <img src="https://images.unsplash.com/photo-1507838153590-1d088b75c5a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Mezcladora">
+        </div>
+        <div class="carousel-item">
+          <img src="https://i.imgur.com/0v4rgom.png" alt="Luces neón música">
+        </div>
+      </div>
+    </section>
+
+    <section class="news-section">
+      <h2 class="section-title">Noticias y Anuncios</h2>
+      <div class="news-container">
+        <div class="news-item">
+          🎧 <strong>¡Nuevo programa los viernes!</strong><br>
+          "Late Night Vibes" comienza a las 22:00 (hora local).
+        </div>
+        <div class="news-item">
+          🎙️ <strong>Entrevista exclusiva</strong><br>
+          DJ Luna conversa con artistas emergentes este miércoles.
+        </div>
+        <div class="news-item">
+          📢 <strong>Sorteo de merchandising</strong><br>
+          Participa desde nuestras redes sociales.
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>Copyright © 2025 | Secreto Musical</p>
+      <p>Designed by Castle</p>
+    </footer>
+
+  </div>
+
+  <script>
+    const toggleChatBtn = document.getElementById('toggleChatBtn');
+    const chatContainer = document.getElementById('chatContainer');
+    toggleChatBtn.addEventListener('click', () => {
+      if (chatContainer.style.display === 'block') {
+        chatContainer.style.display = 'none';
+        toggleChatBtn.textContent = 'Chat';
+      } else {
+        chatContainer.style.display = 'block';
+        toggleChatBtn.textContent = 'Ocultar chat';
+      }
+    });
+
+    const toggleScheduleBtn = document.getElementById('toggleScheduleBtn');
+    const scheduleContainer = document.getElementById('weeklySchedule');
+    toggleScheduleBtn.addEventListener('click', () => {
+      if (scheduleContainer.style.display === 'block') {
+        scheduleContainer.style.display = 'none';
+        toggleScheduleBtn.textContent = 'Programación';
+      } else {
+        scheduleContainer.style.display = 'block';
+        toggleScheduleBtn.textContent = 'Ocultar programación';
+      }
+    });
+  </script>
+
+</body>
+</html>
