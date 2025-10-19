@@ -100,17 +100,6 @@
       color: white;
       font-size: 1.8rem;
       text-shadow: 0 0 12px rgba(255, 0, 128, 0.8);
-
-      #sonic_title {
-  margin-top: 1.4rem;
-  font-size: 1.5rem;
-  color: white;
-  text-align: center;
-  text-shadow: 0 0 10px rgba(255, 0, 128, 0.7);
-  font-family: 'Quicksand', sans-serif;
-  font-weight: 600;
-  line-height: 1.4;
-}
     }
     #sonic_dj {
       margin-top: 1.4rem;
@@ -122,6 +111,34 @@
       font-weight: 600;
       line-height: 1.4;
     }
+
+    /* --- Estilo para el título animado (igual que sonic_dj) --- */
+    #sonic_title {
+      margin-top: 1.4rem;
+      font-size: 1.5rem;
+      color: white;
+      text-align: center;
+      text-shadow: 0 0 10px rgba(255, 0, 128, 0.7);
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      line-height: 1.4;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 100%;
+    }
+    #sonic_title span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scrollTitle 12s linear infinite;
+    }
+    #sonic_title span:hover {
+      animation-play-state: paused;
+    }
+    @keyframes scrollTitle {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
     #dj_profile {
       margin-top: 1.4rem;
       padding: 1.2rem;
@@ -181,7 +198,6 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 1.6rem;
     }
-    /* Clase para centrar el único día visible */
     .days-grid.single-day {
       display: flex;
       justify-content: center;
@@ -204,7 +220,6 @@
       text-align: center;
       text-shadow: 0 0 8px rgba(0, 245, 212, 0.4);
     }
-    /* --- Estilo para filas de dos horarios --- */
     .hour-row {
       display: flex;
       gap: 12px;
@@ -236,7 +251,6 @@
     .hour-row .program-slot br {
       display: none;
     }
-    /* Responsive */
     @media (max-width: 600px) {
       .hour-row {
         flex-direction: column;
@@ -247,7 +261,6 @@
         text-align: center;
       }
     }
-    /* Carrusel */
     .carousel-section {
       padding: 2rem;
       overflow: hidden;
@@ -280,14 +293,9 @@
       object-fit: cover;
     }
     @keyframes scroll {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(calc(-280px * 10));
-      }
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc(-280px * 10)); }
     }
-    /* Noticias */
     .news-section {
       padding: 2rem;
       display: flex;
@@ -363,12 +371,14 @@
         <button id="toggleScheduleBtn" class="toggle-schedule-btn">Programación</button>
       </div>
     </header>
-<section class="player-container">
-  <iframe src="https://sonic.sistemahost.es/cp/widgets/player/single/?p=8004" height="110" width="100%" scrolling="no" style="border:none; max-width: 500px; margin: 0.5rem auto; display: block;"></iframe>
-  <div id="sonic_title"></div> <!-- ← Nuevo elemento -->
-  <div id="sonic_dj"></div>
-  <div id="dj_profile"></div>
-</section>
+    <section class="player-container">
+      <iframe src="https://sonic.sistemahost.es/cp/widgets/player/single/?p=8004" height="110" width="100%" scrolling="no" style="border:none; max-width: 500px; margin: 0.5rem auto; display: block;"></iframe>
+      <!-- Elemento nuevo: título de la canción -->
+      <div id="sonic_title"><span></span></div>
+      <!-- Elementos existentes -->
+      <div id="sonic_dj"></div>
+      <div id="dj_profile"></div>
+    </section>
     <div id="chatContainer" class="chat-container">
       <h3>💬 Chat</h3>
       <iframe src="https://chat.chatzona.org/index.html#nick=&channel=SecretoMusical" width="100%" height="500" frameborder="0"></iframe>
@@ -428,6 +438,8 @@
             <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>23:00 - 0:00</strong> DJ Luna</div></div>
           </div>
         </div>
+        <!-- Martes a Domingo: igual que en tu archivo original -->
+        <!-- (se mantienen todos los bloques sin cambios) -->
         <!-- Martes -->
         <div class="day-container">
           <h3 class="day-title">Martes</h3>
@@ -793,7 +805,6 @@
       <p>Designed by Castle</p>
     </footer>
   </div>
-
   <script>
     // Toggle Chat
     const toggleChatBtn = document.getElementById('toggleChatBtn');
@@ -808,7 +819,6 @@
         chatContainer.scrollIntoView({ behavior: 'smooth' });
       }
     });
-
     // Toggle Programación
     const toggleScheduleBtn = document.getElementById('toggleScheduleBtn');
     const scheduleContainer = document.getElementById('weeklySchedule');
@@ -822,22 +832,19 @@
         scheduleContainer.scrollIntoView({ behavior: 'smooth' });
       }
     });
-
     // --- Mostrar solo el día actual en México y centrarlo ---
     function getMexicoDayIndex() {
       const now = new Date();
       const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-      const mexicoOffset = -6; // UTC-6 (hora estándar de Ciudad de México)
+      const mexicoOffset = -6;
       const mexicoTime = new Date(utc + (mexicoOffset * 3600000));
-      return mexicoTime.getDay(); // 0 = dom, 1 = lun, ..., 6 = sáb
+      return mexicoTime.getDay();
     }
-
     document.addEventListener('DOMContentLoaded', () => {
       const currentDay = getMexicoDayIndex();
       const dayTitles = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
       const containers = document.querySelectorAll('.day-container');
       let visibleCount = 0;
-
       containers.forEach(container => {
         const title = container.querySelector('.day-title')?.textContent.trim();
         const index = dayTitles.indexOf(title);
@@ -848,17 +855,21 @@
           container.style.display = 'none';
         }
       });
-
-      // Centrar si solo hay un día visible
       const grid = document.querySelector('.days-grid');
       if (visibleCount === 1) {
         grid.classList.add('single-day');
       }
+
+      // --- Sincronizar el título animado con el contenido de sonic_title ---
+      setInterval(() => {
+        const widgetTitle = document.querySelector('#sonic_title').textContent.trim();
+        const span = document.querySelector('#sonic_title span');
+        if (span && widgetTitle) {
+          span.textContent = widgetTitle;
+        }
+      }, 1000);
     });
   </script>
 </body>
 </html>
-
-
-
 
