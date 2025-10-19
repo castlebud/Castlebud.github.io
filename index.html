@@ -170,6 +170,12 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 1.6rem;
     }
+    /* Clase para centrar el único día visible */
+    .days-grid.single-day {
+      display: flex;
+      justify-content: center;
+      grid-template-columns: unset !important;
+    }
     .day-container {
       background-color: rgba(40, 38, 48, 0.75);
       border-radius: 16px;
@@ -187,7 +193,7 @@
       text-align: center;
       text-shadow: 0 0 8px rgba(0, 245, 212, 0.4);
     }
-    /* --- NUEVO: Estilo para filas de dos horarios --- */
+    /* --- Estilo para filas de dos horarios --- */
     .hour-row {
       display: flex;
       gap: 12px;
@@ -219,15 +225,18 @@
     .hour-row .program-slot br {
       display: none;
     }
-    /* Responsive: una columna en móviles */
+    /* Responsive */
     @media (max-width: 600px) {
       .hour-row {
         flex-direction: column;
         gap: 6px;
       }
+      .days-grid.single-day {
+        display: block;
+        text-align: center;
+      }
     }
-    /* --------------------------------------------- */
-    /* --- CARRUSEL INFINITO SIN REBOTE --- */
+    /* Carrusel */
     .carousel-section {
       padding: 2rem;
       overflow: hidden;
@@ -267,7 +276,7 @@
         transform: translateX(calc(-280px * 10));
       }
     }
-    /* ---------------------------------- */
+    /* Noticias */
     .news-section {
       padding: 2rem;
       display: flex;
@@ -362,7 +371,7 @@
       <h2 class="section-title">Programación Semanal</h2>
       <div class="days-grid">
         <!-- Lunes -->
-        <div class="day-container" data-day="1">
+        <div class="day-container">
           <h3 class="day-title">Lunes</h3>
           <div class="hour-row">
             <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>0:00 - 1:00</strong> DJ Luna</div></div>
@@ -414,7 +423,7 @@
           </div>
         </div>
         <!-- Martes -->
-        <div class="day-container" data-day="2">
+        <div class="day-container">
           <h3 class="day-title">Martes</h3>
           <div class="hour-row">
             <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>0:00 - 1:00</strong> DJ Sol</div></div>
@@ -466,7 +475,7 @@
           </div>
         </div>
         <!-- Miércoles -->
-        <div class="day-container" data-day="3">
+        <div class="day-container">
           <h3 class="day-title">Miércoles</h3>
           <div class="hour-row">
             <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>0:00 - 1:00</strong> DJ Echo</div></div>
@@ -518,7 +527,7 @@
           </div>
         </div>
         <!-- Jueves -->
-        <div class="day-container" data-day="4">
+        <div class="day-container">
           <h3 class="day-title">Jueves</h3>
           <div class="hour-row">
             <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>0:00 - 1:00</strong> DJ Nova</div></div>
@@ -570,7 +579,7 @@
           </div>
         </div>
         <!-- Viernes -->
-        <div class="day-container" data-day="5">
+        <div class="day-container">
           <h3 class="day-title">Viernes</h3>
           <div class="hour-row">
             <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>0:00 - 1:00</strong> DJ Pulse</div></div>
@@ -622,7 +631,7 @@
           </div>
         </div>
         <!-- Sábado -->
-        <div class="day-container" data-day="6">
+        <div class="day-container">
           <h3 class="day-title">Sábado</h3>
           <div class="hour-row">
             <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>0:00 - 1:00</strong> DJ Ray</div></div>
@@ -674,7 +683,7 @@
           </div>
         </div>
         <!-- Domingo -->
-        <div class="day-container" data-day="0">
+        <div class="day-container">
           <h3 class="day-title">Domingo</h3>
           <div class="hour-row">
             <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>0:00 - 1:00</strong> DJ Sky</div></div>
@@ -780,7 +789,7 @@
   </div>
 
   <script>
-    // --- Toggle Chat y Programación (sin cambios) ---
+    // Toggle Chat
     const toggleChatBtn = document.getElementById('toggleChatBtn');
     const chatContainer = document.getElementById('chatContainer');
     toggleChatBtn.addEventListener('click', () => {
@@ -794,6 +803,7 @@
       }
     });
 
+    // Toggle Programación
     const toggleScheduleBtn = document.getElementById('toggleScheduleBtn');
     const scheduleContainer = document.getElementById('weeklySchedule');
     toggleScheduleBtn.addEventListener('click', () => {
@@ -807,7 +817,7 @@
       }
     });
 
-    // --- Mostrar solo el día actual en México ---
+    // --- Mostrar solo el día actual en México y centrarlo ---
     function getMexicoDayIndex() {
       const now = new Date();
       const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
@@ -818,16 +828,26 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       const currentDay = getMexicoDayIndex();
-      const dayContainers = document.querySelectorAll('.day-container');
+      const dayTitles = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+      const containers = document.querySelectorAll('.day-container');
+      let visibleCount = 0;
 
-      dayContainers.forEach(container => {
-        const dayAttr = parseInt(container.getAttribute('data-day'), 10);
-        if (dayAttr === currentDay) {
+      containers.forEach(container => {
+        const title = container.querySelector('.day-title')?.textContent.trim();
+        const index = dayTitles.indexOf(title);
+        if (index === currentDay) {
           container.style.display = 'block';
+          visibleCount++;
         } else {
           container.style.display = 'none';
         }
       });
+
+      // Centrar si solo hay un día visible
+      const grid = document.querySelector('.days-grid');
+      if (visibleCount === 1) {
+        grid.classList.add('single-day');
+      }
     });
   </script>
 </body>
