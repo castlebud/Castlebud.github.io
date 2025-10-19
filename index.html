@@ -365,6 +365,8 @@
       <h3>💬 Chat</h3>
       <iframe src="https://chat.chatzona.org/index.html#nick=&channel=SecretoMusical" width="100%" height="500" frameborder="0"></iframe>
     </div>
+
+    <!-- Programación Semanal - Nueva estructura -->
     <section id="weeklySchedule" class="schedule-week" style="display: none;">
       <h2 class="section-title">Programación Semanal</h2>
       <div class="days-buttons">
@@ -762,7 +764,7 @@
         </div>
       </div>
     </section>
-    <!-- Carrusel con tu imagen personalizada repetida 20 veces (10 + 10 para bucle infinito) -->
+<!-- Carrusel -->
     <section class="carousel-section">
       <h2 class="section-title">Nuestro Equipo</h2>
       <div class="carousel-wrapper">
@@ -825,54 +827,116 @@
       return mexicoTime.getDay(); // 0 = domingo, 1 = lunes, ..., 6 = sábado
     }
 
-    // === Botón de Programación ===
-    const toggleScheduleBtn = document.getElementById('toggleScheduleBtn');
-    const scheduleContainer = document.getElementById('weeklySchedule');
+    // === Mostrar SOLO un día y ocultar los demás ===
+    function showOnlyDay(dayValue) {
+      document.querySelectorAll('.day-block').forEach(block => {
+        block.style.display = 'none';
+      });
+      const target = document.querySelector(`.day-block[data-day="${dayValue}"]`);
+      if (target) target.style.display = 'block';
+    }
 
-    toggleScheduleBtn.addEventListener('click', () => {
-      if (scheduleContainer.style.display === 'block') {
-        scheduleContainer.style.display = 'none';
-        toggleScheduleBtn.textContent = 'Programación';
-      } else {
-        scheduleContainer.style.display = 'block';
-        toggleScheduleBtn.textContent = 'Ocultar programación';
-        scheduleContainer.scrollIntoView({ behavior: 'smooth' });
+    // === Reemplazar la estructura de programación por bloques con data-day ===
+    function restructureSchedule() {
+      const scheduleSection = document.getElementById('weeklySchedule');
+      const daysGrid = scheduleSection.querySelector('.days-grid');
+      if (!daysGrid || scheduleSection.dataset.restructured) return;
 
-        // Mostrar SOLO el día actual
-        const today = getCurrentMexicanDay();
-        document.querySelectorAll('.day-block').forEach(block => {
-          block.style.display = 'none';
+      const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+      const dayContainers = daysGrid.querySelectorAll('.day-container');
+
+      // Crear botones
+      const buttonsDiv = document.createElement('div');
+      buttonsDiv.className = 'days-buttons';
+      buttonsDiv.style.display = 'flex';
+      buttonsDiv.style.flexWrap = 'wrap';
+      buttonsDiv.style.gap = '0.6rem';
+      buttonsDiv.style.justifyContent = 'center';
+      buttonsDiv.style.marginBottom = '1.5rem';
+
+      for (let i = 0; i < 7; i++) {
+        const btn = document.createElement('button');
+        btn.className = 'day-toggle-btn';
+        btn.setAttribute('data-day', i);
+        btn.textContent = days[i];
+        btn.style.backgroundColor = 'rgba(0, 245, 212, 0.15)';
+        btn.style.color = 'white';
+        btn.style.border = '1px solid var(--neon-turquoise)';
+        btn.style.padding = '0.4rem 0.8rem';
+        btn.style.borderRadius = '20px';
+        btn.style.fontFamily = "'Quicksand', sans-serif";
+        btn.style.fontSize = '0.9rem';
+        btn.style.cursor = 'pointer';
+        btn.style.transition = 'all 0.2s ease';
+        buttonsDiv.appendChild(btn);
+      }
+
+      // Crear bloques de día
+      const blocksDiv = document.createElement('div');
+      blocksDiv.className = 'schedule-blocks';
+
+      dayContainers.forEach((container, index) => {
+        const block = document.createElement('div');
+        block.className = 'day-block';
+        block.setAttribute('data-day', (index + 1) % 7); // Lunes = 1, ..., Domingo = 0
+        block.style.display = 'none';
+        block.appendChild(container);
+        blocksDiv.appendChild(block);
+      });
+
+      // Reemplazar contenido
+      scheduleSection.innerHTML = '';
+      scheduleSection.appendChild(document.createElement('h2')).className = 'section-title';
+      scheduleSection.lastChild.textContent = 'Programación Semanal';
+      scheduleSection.appendChild(buttonsDiv);
+      scheduleSection.appendChild(blocksDiv);
+
+      // Marcar como reestructurado
+      scheduleSection.dataset.restructured = 'true';
+
+      // Añadir eventos a los nuevos botones
+      document.querySelectorAll('.day-toggle-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const day = btn.getAttribute('data-day');
+          showOnlyDay(day);
         });
-        const todayBlock = document.querySelector(`.day-block[data-day="${today}"]`);
-        if (todayBlock) todayBlock.style.display = 'block';
+      });
+    }
+
+    // === Botón de Programación ===
+    document.getElementById('toggleScheduleBtn').addEventListener('click', () => {
+      const schedule = document.getElementById('weeklySchedule');
+      const isVisible = schedule.style.display === 'block';
+
+      if (isVisible) {
+        schedule.style.display = 'none';
+        document.getElementById('toggleScheduleBtn').textContent = 'Programación';
+      } else {
+        // Reestructurar la primera vez que se abre
+        restructureSchedule();
+
+        schedule.style.display = 'block';
+        document.getElementById('toggleScheduleBtn').textContent = 'Ocultar programación';
+        schedule.scrollIntoView({ behavior: 'smooth' });
+
+        // Mostrar solo el día actual
+        const today = getCurrentMexicanDay();
+        showOnlyDay(today);
       }
     });
 
     // === Botón de Chat ===
-    const toggleChatBtn = document.getElementById('toggleChatBtn');
-    const chatContainer = document.getElementById('chatContainer');
-    toggleChatBtn.addEventListener('click', () => {
-      if (chatContainer.style.display === 'block') {
-        chatContainer.style.display = 'none';
-        toggleChatBtn.textContent = 'Chat';
+    document.getElementById('toggleChatBtn').addEventListener('click', () => {
+      const chat = document.getElementById('chatContainer');
+      if (chat.style.display === 'block') {
+        chat.style.display = 'none';
+        document.getElementById('toggleChatBtn').textContent = 'Chat';
       } else {
-        chatContainer.style.display = 'block';
-        toggleChatBtn.textContent = 'Ocultar chat';
-        chatContainer.scrollIntoView({ behavior: 'smooth' });
+        chat.style.display = 'block';
+        document.getElementById('toggleChatBtn').textContent = 'Ocultar chat';
+        chat.scrollIntoView({ behavior: 'smooth' });
       }
-    });
-
-    // === Alternar visibilidad de días al hacer clic en sus botones ===
-    document.querySelectorAll('.day-toggle-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const day = btn.getAttribute('data-day');
-        const block = document.querySelector(`.day-block[data-day="${day}"]`);
-        if (block) {
-          block.style.display = block.style.display === 'block' ? 'none' : 'block';
-        }
-      });
     });
   </script>
 </body>
 </html>
-
