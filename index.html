@@ -878,33 +878,5 @@ $('#stream').lunaradio({     streamurl: 'https://sonic.sistemahost.es/8004',
       }
     });
   </script>
-  <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const streamContainer = document.getElementById('stream');
-    const observer = new MutationObserver(() => {
-      const audioElement = streamContainer.querySelector('audio');
-      if (audioElement && !audioElement.hasAttribute('autoplay-attempted')) {
-        audioElement.setAttribute('autoplay-attempted', 'true');
-        audioElement.play().catch(e => {
-          console.log('Autoplay bloqueado por el navegador:', e);
-          // Opcional: mostrar un mensaje o botón de play
-        });
-      }
-    });
-
-    observer.observe(streamContainer, { childList: true, subtree: true });
-  });
-</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
