@@ -165,30 +165,10 @@
     .schedule-week {
       padding: 2rem;
     }
-    .days-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-    }
-    .day-toggle-btn {
-      background-color: rgba(0, 245, 212, 0.15);
-      color: white;
-      border: 1px solid var(--neon-turquoise);
-      padding: 0.4rem 0.8rem;
-      border-radius: 20px;
-      font-family: 'Quicksand', sans-serif;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .day-toggle-btn:hover {
-      background-color: rgba(0, 245, 212, 0.3);
-    }
-    .day-block {
-      display: none;
-      margin-bottom: 1.6rem;
+    .days-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.6rem;
     }
     .day-container {
       background-color: rgba(40, 38, 48, 0.75);
@@ -207,6 +187,7 @@
       text-align: center;
       text-shadow: 0 0 8px rgba(0, 245, 212, 0.4);
     }
+    /* --- NUEVO: Estilo para filas de dos horarios --- */
     .hour-row {
       display: flex;
       gap: 12px;
@@ -238,12 +219,15 @@
     .hour-row .program-slot br {
       display: none;
     }
+    /* Responsive: una columna en móviles */
     @media (max-width: 600px) {
       .hour-row {
         flex-direction: column;
         gap: 6px;
       }
     }
+    /* --------------------------------------------- */
+    /* --- CARRUSEL INFINITO SIN REBOTE --- */
     .carousel-section {
       padding: 2rem;
       overflow: hidden;
@@ -283,6 +267,7 @@
         transform: translateX(calc(-280px * 10));
       }
     }
+    /* ---------------------------------- */
     .news-section {
       padding: 2rem;
       display: flex;
@@ -324,7 +309,15 @@
       margin: 0.4rem 0;
       font-size: 1.05rem;
     }
+    @media (max-width: 900px) {
+      .days-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
     @media (max-width: 600px) {
+      .days-grid {
+        grid-template-columns: 1fr;
+      }
       .header-title {
         font-size: 2.2rem;
       }
@@ -365,22 +358,10 @@
       <h3>💬 Chat</h3>
       <iframe src="https://chat.chatzona.org/index.html#nick=&channel=SecretoMusical" width="100%" height="500" frameborder="0"></iframe>
     </div>
-
-    <!-- Programación Semanal - Nueva estructura -->
     <section id="weeklySchedule" class="schedule-week" style="display: none;">
       <h2 class="section-title">Programación Semanal</h2>
-      <div class="days-buttons">
-        <button class="day-toggle-btn" data-day="1">Lunes</button>
-        <button class="day-toggle-btn" data-day="2">Martes</button>
-        <button class="day-toggle-btn" data-day="3">Miércoles</button>
-        <button class="day-toggle-btn" data-day="4">Jueves</button>
-        <button class="day-toggle-btn" data-day="5">Viernes</button>
-        <button class="day-toggle-btn" data-day="6">Sábado</button>
-        <button class="day-toggle-btn" data-day="0">Domingo</button>
-      </div>
-
-      <!-- Lunes -->
-      <div class="day-block" data-day="1">
+      <div class="days-grid">
+        <!-- Lunes -->
         <div class="day-container">
           <h3 class="day-title">Lunes</h3>
           <div class="hour-row">
@@ -432,10 +413,7 @@
             <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>23:00 - 0:00</strong> DJ Luna</div></div>
           </div>
         </div>
-      </div>
-
-      <!-- Martes -->
-      <div class="day-block" data-day="2">
+        <!-- Martes -->
         <div class="day-container">
           <h3 class="day-title">Martes</h3>
           <div class="hour-row">
@@ -487,10 +465,7 @@
             <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>23:00 - 0:00</strong> DJ Sol</div></div>
           </div>
         </div>
-      </div>
-
-      <!-- Miércoles -->
-      <div class="day-block" data-day="3">
+        <!-- Miércoles -->
         <div class="day-container">
           <h3 class="day-title">Miércoles</h3>
           <div class="hour-row">
@@ -542,10 +517,7 @@
             <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>23:00 - 0:00</strong> DJ Echo</div></div>
           </div>
         </div>
-      </div>
-
-      <!-- Jueves -->
-      <div class="day-block" data-day="4">
+        <!-- Jueves -->
         <div class="day-container">
           <h3 class="day-title">Jueves</h3>
           <div class="hour-row">
@@ -597,10 +569,7 @@
             <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>23:00 - 0:00</strong> DJ Nova</div></div>
           </div>
         </div>
-      </div>
-
-      <!-- Viernes -->
-      <div class="day-block" data-day="5">
+        <!-- Viernes -->
         <div class="day-container">
           <h3 class="day-title">Viernes</h3>
           <div class="hour-row">
@@ -652,10 +621,7 @@
             <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>23:00 - 0:00</strong> DJ Pulse</div></div>
           </div>
         </div>
-      </div>
-
-      <!-- Sábado -->
-      <div class="day-block" data-day="6">
+        <!-- Sábado -->
         <div class="day-container">
           <h3 class="day-title">Sábado</h3>
           <div class="hour-row">
@@ -707,10 +673,7 @@
             <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>23:00 - 0:00</strong> DJ Ray</div></div>
           </div>
         </div>
-      </div>
-
-      <!-- Domingo -->
-      <div class="day-block" data-day="0">
+        <!-- Domingo -->
         <div class="day-container">
           <h3 class="day-title">Domingo</h3>
           <div class="hour-row">
@@ -764,7 +727,7 @@
         </div>
       </div>
     </section>
-<!-- Carrusel -->
+    <!-- Carrusel con tu imagen personalizada repetida 20 veces (10 + 10 para bucle infinito) -->
     <section class="carousel-section">
       <h2 class="section-title">Nuestro Equipo</h2>
       <div class="carousel-wrapper">
@@ -793,7 +756,6 @@
         </div>
       </div>
     </section>
-
     <section class="news-section">
       <h2 class="section-title">Noticias y Anuncios</h2>
       <div class="news-container">
@@ -811,132 +773,38 @@
         </div>
       </div>
     </section>
-
     <footer>
       <p>Copyright © 2025 | Secreto Musical</p>
       <p>Designed by Castle</p>
     </footer>
   </div>
-
   <script>
-    // === Función para obtener el día actual en México (UTC-6) ===
-    function getCurrentMexicanDay() {
-      const now = new Date();
-      const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-      const mexicoTime = new Date(utc + (-6 * 3600000)); // UTC-6
-      return mexicoTime.getDay(); // 0 = domingo, 1 = lunes, ..., 6 = sábado
-    }
-
-    // === Mostrar SOLO un día y ocultar los demás ===
-    function showOnlyDay(dayValue) {
-      document.querySelectorAll('.day-block').forEach(block => {
-        block.style.display = 'none';
-      });
-      const target = document.querySelector(`.day-block[data-day="${dayValue}"]`);
-      if (target) target.style.display = 'block';
-    }
-
-    // === Reemplazar la estructura de programación por bloques con data-day ===
-    function restructureSchedule() {
-      const scheduleSection = document.getElementById('weeklySchedule');
-      const daysGrid = scheduleSection.querySelector('.days-grid');
-      if (!daysGrid || scheduleSection.dataset.restructured) return;
-
-      const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-      const dayContainers = daysGrid.querySelectorAll('.day-container');
-
-      // Crear botones
-      const buttonsDiv = document.createElement('div');
-      buttonsDiv.className = 'days-buttons';
-      buttonsDiv.style.display = 'flex';
-      buttonsDiv.style.flexWrap = 'wrap';
-      buttonsDiv.style.gap = '0.6rem';
-      buttonsDiv.style.justifyContent = 'center';
-      buttonsDiv.style.marginBottom = '1.5rem';
-
-      for (let i = 0; i < 7; i++) {
-        const btn = document.createElement('button');
-        btn.className = 'day-toggle-btn';
-        btn.setAttribute('data-day', i);
-        btn.textContent = days[i];
-        btn.style.backgroundColor = 'rgba(0, 245, 212, 0.15)';
-        btn.style.color = 'white';
-        btn.style.border = '1px solid var(--neon-turquoise)';
-        btn.style.padding = '0.4rem 0.8rem';
-        btn.style.borderRadius = '20px';
-        btn.style.fontFamily = "'Quicksand', sans-serif";
-        btn.style.fontSize = '0.9rem';
-        btn.style.cursor = 'pointer';
-        btn.style.transition = 'all 0.2s ease';
-        buttonsDiv.appendChild(btn);
-      }
-
-      // Crear bloques de día
-      const blocksDiv = document.createElement('div');
-      blocksDiv.className = 'schedule-blocks';
-
-      dayContainers.forEach((container, index) => {
-        const block = document.createElement('div');
-        block.className = 'day-block';
-        block.setAttribute('data-day', (index + 1) % 7); // Lunes = 1, ..., Domingo = 0
-        block.style.display = 'none';
-        block.appendChild(container);
-        blocksDiv.appendChild(block);
-      });
-
-      // Reemplazar contenido
-      scheduleSection.innerHTML = '';
-      scheduleSection.appendChild(document.createElement('h2')).className = 'section-title';
-      scheduleSection.lastChild.textContent = 'Programación Semanal';
-      scheduleSection.appendChild(buttonsDiv);
-      scheduleSection.appendChild(blocksDiv);
-
-      // Marcar como reestructurado
-      scheduleSection.dataset.restructured = 'true';
-
-      // Añadir eventos a los nuevos botones
-      document.querySelectorAll('.day-toggle-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const day = btn.getAttribute('data-day');
-          showOnlyDay(day);
-        });
-      });
-    }
-
-    // === Botón de Programación ===
-    document.getElementById('toggleScheduleBtn').addEventListener('click', () => {
-      const schedule = document.getElementById('weeklySchedule');
-      const isVisible = schedule.style.display === 'block';
-
-      if (isVisible) {
-        schedule.style.display = 'none';
-        document.getElementById('toggleScheduleBtn').textContent = 'Programación';
+    const toggleChatBtn = document.getElementById('toggleChatBtn');
+    const chatContainer = document.getElementById('chatContainer');
+    toggleChatBtn.addEventListener('click', () => {
+      if (chatContainer.style.display === 'block') {
+        chatContainer.style.display = 'none';
+        toggleChatBtn.textContent = 'Chat';
       } else {
-        // Reestructurar la primera vez que se abre
-        restructureSchedule();
-
-        schedule.style.display = 'block';
-        document.getElementById('toggleScheduleBtn').textContent = 'Ocultar programación';
-        schedule.scrollIntoView({ behavior: 'smooth' });
-
-        // Mostrar solo el día actual
-        const today = getCurrentMexicanDay();
-        showOnlyDay(today);
+        chatContainer.style.display = 'block';
+        toggleChatBtn.textContent = 'Ocultar chat';
+        chatContainer.scrollIntoView({ behavior: 'smooth' });
       }
     });
 
-    // === Botón de Chat ===
-    document.getElementById('toggleChatBtn').addEventListener('click', () => {
-      const chat = document.getElementById('chatContainer');
-      if (chat.style.display === 'block') {
-        chat.style.display = 'none';
-        document.getElementById('toggleChatBtn').textContent = 'Chat';
+    const toggleScheduleBtn = document.getElementById('toggleScheduleBtn');
+    const scheduleContainer = document.getElementById('weeklySchedule');
+    toggleScheduleBtn.addEventListener('click', () => {
+      if (scheduleContainer.style.display === 'block') {
+        scheduleContainer.style.display = 'none';
+        toggleScheduleBtn.textContent = 'Programación';
       } else {
-        chat.style.display = 'block';
-        document.getElementById('toggleChatBtn').textContent = 'Ocultar chat';
-        chat.scrollIntoView({ behavior: 'smooth' });
+        scheduleContainer.style.display = 'block';
+        toggleScheduleBtn.textContent = 'Ocultar programación';
+        scheduleContainer.scrollIntoView({ behavior: 'smooth' });
       }
     });
   </script>
 </body>
 </html>
+
