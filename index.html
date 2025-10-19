@@ -805,6 +805,49 @@
       }
     });
   </script>
+  <script>
+  // Función para obtener el día actual en la zona horaria de México
+  function getCurrentDayInMexico() {
+    const now = new Date();
+    const mexicoTime = new Intl.DateTimeFormat('es-MX', {
+      timeZone: 'America/Mexico_City',
+      weekday: 'long'
+    }).format(now);
+
+    // Mapeo del nombre del día en español a número (0-6)
+    const dayNames = [
+      'domingo', 'lunes', 'martes', 'miércoles',
+      'jueves', 'viernes', 'sábado'
+    ];
+    const dayIndex = dayNames.indexOf(mexicoTime.toLowerCase());
+    return dayIndex; // 0 a 6
+  }
+
+  // Alternativa más directa usando getTimezoneOffset (más confiable para getDay)
+  function getMexicoDayIndex() {
+    const now = new Date();
+    const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+    const mexicoOffset = -6; // UTC-6 (hora estándar de Ciudad de México)
+    const mexicoTime = new Date(utc + (mexicoOffset * 3600000));
+    return mexicoTime.getDay(); // 0 = dom, 1 = lun, ..., 6 = sáb
+  }
+
+  // Ocultar todos los días excepto el actual
+  document.addEventListener('DOMContentLoaded', () => {
+    const currentDay = getMexicoDayIndex(); // 0 a 6
+    const dayContainers = document.querySelectorAll('.day-container');
+
+    dayContainers.forEach(container => {
+      const dayAttr = parseInt(container.getAttribute('data-day'), 10);
+      if (dayAttr === currentDay) {
+        container.style.display = 'block';
+      } else {
+        container.style.display = 'none';
+      }
+    });
+  });
+</script>
 </body>
 </html>
+
 
