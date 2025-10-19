@@ -377,12 +377,19 @@
         <button id="toggleScheduleBtn" class="toggle-schedule-btn">Programación</button>
       </div>
     </header>
-    <section class="player-container">
-      <iframe src="https://sonic.sistemahost.es/cp/widgets/player/single/?p=8004" height="110" width="100%" scrolling="no" style="border:none; max-width: 500px; margin: 0.5rem auto; display: block;"></iframe>
-      <div id="sonic_title"></div>
-      <div id="sonic_dj"></div>
-      <div id="dj_profile"></div>
-    </section>
+<section class="player-container">
+  <iframe 
+    src="https://sonic.sistemahost.es/cp/widgets/player/single/?p=8004&autoplay=1" 
+    height="110" 
+    width="100%" 
+    scrolling="no" 
+    style="border:none; max-width: 500px; margin: 0.5rem auto; display: block;"
+    allow="autoplay"
+  ></iframe>
+  <div id="sonic_title"></div>
+  <div id="sonic_dj"></div>
+  <div id="dj_profile"></div>
+</section>
     <div id="chatContainer" class="chat-container">
       <h3>💬 Chat</h3>
       <iframe src="https://chat.chatzona.org/index.html#nick=&channel=SecretoMusical" width="100%" height="500" frameborder="0"></iframe>
@@ -866,6 +873,7 @@
   </script>
 </body>
 </html>
+
 
 
 
