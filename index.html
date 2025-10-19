@@ -379,12 +379,21 @@
     </header>
 <section class="player-container">
   <iframe 
-    src="https://sonic.sistemahost.es/cp/widgets/player/single/?p=8004&autoplay=1" 
-    height="110" 
-    width="100%" 
-    scrolling="no" 
-    style="border:none; max-width: 500px; margin: 0.5rem auto; display: block;"
-    allow="autoplay"
+<div id="stream" style="width:auto; height:300px;"></div>
+<script src="https://sistemahost.com/playergenerator/js/jquery-3.2.1.min.js"></script>
+<script src="https://sistemahost.com/playergenerator/js/player.js"></script>
+
+<script> 
+$('#stream').lunaradio({     streamurl: 'https://sonic.sistemahost.es/8004', 
+    radioname: '', 
+    coverimage: 'https://github.com/castlebud/Castlebud.github.io/blob/main/28c574db-908c-495a-beca-f5aeb303b293.png?raw=true', 
+    onlycoverimage: false,     userinterface: 'big',     backgroundcolor: '#000000', 
+    fontcolor: '#ffffff',     hightlightcolor: '#6c757d',     fontname: 'Raleway', 
+    googlefont: 'Raleway:wght@100',     fontratio: '0.4',     scroll: 'true', 
+    coverstyle: 'animated',     usevisualizer: 'real',     visualizertype: '6', 
+    streamtype: 'shoutcast2',     shoutcastpath: '/stream',     shoutcastid: '1', 
+    autoplay: 'true',     metadatainterval: '5000',     volume: '100', 
+    usestreamcorsproxy: 'true', }); </script> 
   ></iframe>
   <div id="sonic_title"></div>
   <div id="sonic_dj"></div>
@@ -873,6 +882,7 @@
   </script>
 </body>
 </html>
+
 
 
 
