@@ -114,11 +114,14 @@
 
     /* --- Estilo para el título animado (igual que sonic_dj) --- */
     #sonic_title {
+      display: none; /* Oculto: solo usado por el widget */
+    }
+    #animated_title {
       margin-top: 1.4rem;
       font-size: 1.5rem;
       color: white;
       text-align: center;
-      text-shadow: 0 0 10px rgba(255, 0, 128, 0.7);
+      text-shadow: 0 0 10px rgba(255, 0, 128, 0.7); /* Rosa neón */
       font-family: 'Quicksand', sans-serif;
       font-weight: 600;
       line-height: 1.4;
@@ -126,12 +129,12 @@
       overflow: hidden;
       width: 100%;
     }
-    #sonic_title span {
+    #animated_title span {
       display: inline-block;
       padding-left: 100%;
-      animation: scrollTitle 12s linear infinite;
+      animation: scrollTitle 14s linear infinite;
     }
-    #sonic_title span:hover {
+    #animated_title span:hover {
       animation-play-state: paused;
     }
     @keyframes scrollTitle {
@@ -373,9 +376,13 @@
     </header>
     <section class="player-container">
       <iframe src="https://sonic.sistemahost.es/cp/widgets/player/single/?p=8004" height="110" width="100%" scrolling="no" style="border:none; max-width: 500px; margin: 0.5rem auto; display: block;"></iframe>
-      <!-- Elemento nuevo: título de la canción -->
-      <div id="sonic_title"><span></span></div>
-      <!-- Elementos existentes -->
+      
+      <!-- Elemento que Sonic actualiza (invisible) -->
+      <div id="sonic_title"></div>
+      
+      <!-- Elemento visible con animación -->
+      <div id="animated_title"><span>Cargando...</span></div>
+      
       <div id="sonic_dj"></div>
       <div id="dj_profile"></div>
     </section>
@@ -832,7 +839,7 @@
         scheduleContainer.scrollIntoView({ behavior: 'smooth' });
       }
     });
-    // --- Mostrar solo el día actual en México y centrarlo ---
+    // Mostrar solo el día actual en México y centrarlo
     function getMexicoDayIndex() {
       const now = new Date();
       const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
@@ -860,12 +867,15 @@
         grid.classList.add('single-day');
       }
 
-      // --- Sincronizar el título animado con el contenido de sonic_title ---
+      // --- Sincronización del título animado ---
       setInterval(() => {
-        const widgetTitle = document.querySelector('#sonic_title').textContent.trim();
-        const span = document.querySelector('#sonic_title span');
-        if (span && widgetTitle) {
-          span.textContent = widgetTitle;
+        const src = document.getElementById('sonic_title');
+        const dst = document.getElementById('animated_title');
+        if (src && dst) {
+          const text = src.textContent.trim();
+          if (text) {
+            dst.innerHTML = `<span>${text}</span>`;
+          }
         }
       }, 1000);
     });
