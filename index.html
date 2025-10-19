@@ -139,23 +139,25 @@
   line-height: 1.4;
 }
 
-    #dj_profile {
-      margin-top: 1.4rem;
-      padding: 1.2rem;
-      background-color: rgba(20, 18, 26, 0.7);
-      border: 2px solid #fff01a;
-      border-radius: 14px;
-      color: white;
-      font-family: 'Quicksand', sans-serif;
-      font-size: 1.1rem;
-      text-align: center;
-      line-height: 1.5;
-      box-shadow:
-        0 0 12px rgba(255, 240, 26, 0.6),
-        0 0 20px rgba(255, 240, 26, 0.4);
-      backdrop-filter: blur(4px);
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
-    }
+#dj_profile {
+  margin-top: 1.4rem;
+  padding: 1.2rem;
+  background-color: transparent; /* Fondo totalmente transparente */
+  border: 2px solid #fff01a;    /* Borde amarillo brillante */
+  border-radius: 14px;
+  color: white;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.1rem;
+  text-align: center;
+  line-height: 1.5;
+  box-shadow:
+    0 0 12px rgba(255, 240, 26, 0.6),
+    0 0 20px rgba(255, 240, 26, 0.4); /* Brillo exterior amarillo */
+  backdrop-filter: none; /* Sin desenfoque de fondo */
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+  display: inline-block; /* Ajusta el ancho al contenido */
+  max-width: 100%;       /* Evita desbordamiento en móviles */
+}
     .section-title {
       text-align: center;
       margin-bottom: 2rem;
@@ -864,6 +866,7 @@
   </script>
 </body>
 </html>
+
 
 
 
