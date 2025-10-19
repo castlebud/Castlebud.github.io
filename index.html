@@ -209,32 +209,52 @@
       text-shadow: 0 0 8px rgba(0, 245, 212, 0.4);
     }
 
-    .program-slot {
+    /* --- NUEVO: Estilo para filas de dos horarios --- */
+    .hour-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 0.8rem;
+    }
+
+    .hour-row .program-slot {
+      flex: 1;
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 0.8rem 0;
-      border-bottom: 1px solid #3a3a3a;
+      gap: 8px;
+      padding: 0.6rem;
+      border-radius: 10px;
+      background-color: rgba(50, 48, 58, 0.4);
+      text-align: left;
     }
 
-    .program-slot:last-child {
-      border-bottom: none;
-    }
-
-    .program-slot img {
-      width: 24px;
+    .hour-row .program-slot img {
+      width: 20px;
       height: auto;
-      border-radius: 3px;
+      border-radius: 2px;
     }
 
-    .program-slot div {
+    .hour-row .program-slot div {
       flex: 1;
     }
 
-    .program-slot strong {
+    .hour-row .program-slot strong {
       color: white;
-      font-size: 1.05rem;
+      font-size: 0.95rem;
+      display: block;
     }
+
+    .hour-row .program-slot br {
+      display: none;
+    }
+
+    /* Responsive: una columna en móviles */
+    @media (max-width: 600px) {
+      .hour-row {
+        flex-direction: column;
+        gap: 6px;
+      }
+    }
+    /* --------------------------------------------- */
 
     /* --- CARRUSEL INFINITO SIN REBOTE --- */
     .carousel-section {
@@ -388,123 +408,381 @@
       <iframe src="https://chat.chatzona.org/index.html#nick=&channel=SecretoMusical" width="100%" height="500" frameborder="0"></iframe>
     </div>
 
-    <section id="weeklySchedule" class="schedule-week" style="display: none;">
-      <h2 class="section-title">Programación Semanal</h2>
-      <div class="days-grid">
-        <div class="day-container">
-          <h3 class="day-title">Lunes</h3>
-          <div class="program-slot">
-            <img src="https://flagcdn.com/w20/es.png" alt="España">
-            <div>
-              <strong>8:00 - 10:00</strong><br>DJ Buddy
-            </div>
-          </div>
-          <div class="program-slot">
-            <img src="https://flagcdn.com/w20/es.png" alt="España">
-            <div>
-              <strong>10:00 - 12:00</strong><br>DJ Duque
-            </div>
-          </div>
-          <div class="program-slot">
-            <img src="https://flagcdn.com/w20/es.png" alt="España">
-            <div>
-              <strong>12:00 - 14:00</strong><br>DJ Luna
-            </div>
-          </div>
-        </div>
-        <div class="day-container">
-          <h3 class="day-title">Martes</h3>
-          <div class="program-slot">
-            <img src="https://flagcdn.com/w20/es.png" alt="España">
-            <div>
-              <strong>8:00 - 10:00</strong><br>DJ Sol
-            </div>
-          </div>
-          <div class="program-slot">
-            <img src="https://flagcdn.com/w20/es.png" alt="España">
-            <div>
-              <strong>10:00 - 12:00</strong><br>DJ Nova
-            </div>
-          </div>
-        </div>
-        <div class="day-container">
-          <h3 class="day-title">Miércoles</h3>
-          <div class="program-slot">
-            <img src="https://flagcdn.com/w20/es.png" alt="España">
-            <div>
-              <strong>8:00 - 10:00</strong><br>DJ Echo
-            </div>
-          </div>
-          <div class="program-slot">
-            <img src="https://flagcdn.com/w20/es.png" alt="España">
-            <div>
-              <strong>10:00 - 12:00</strong><br>DJ Pulse
-            </div>
-          </div>
-        </div>
-        <div class="day-container">
-          <h3 class="day-title">Jueves</h3>
-          <div class="program-slot">
-            <img src="https://flagcdn.com/w20/es.png" alt="España">
-            <div>
-              <strong>8:00 - 10:00</strong><br>DJ Ray
-            </div>
-          </div>
-          <div class="program-slot">
-            <img src="https://flagcdn.com/w20/es.png" alt="España">
-            <div>
-              <strong>10:00 - 12:00</strong><br>DJ Sky
-            </div>
-          </div>
-        </div>
-        <div class="day-container">
-          <h3 class="day-title">Viernes</h3>
-          <div class="program-slot">
-            <img src="https://flagcdn.com/w20/es.png" alt="España">
-            <div>
-              <strong>8:00 - 10:00</strong><br>DJ Star
-            </div>
-          </div>
-          <div class="program-slot">
-            <img src="https://flagcdn.com/w20/es.png" alt="España">
-            <div>
-              <strong>10:00 - 12:00</strong><br>DJ Moon
-            </div>
-          </div>
-        </div>
-        <div class="day-container">
-          <h3 class="day-title">Sábado</h3>
-          <div class="program-slot">
-            <img src="https://flagcdn.com/w20/es.png" alt="España">
-            <div>
-              <strong>10:00 - 12:00</strong><br>DJ Fiesta
-            </div>
-          </div>
-          <div class="program-slot">
-            <img src="https://flagcdn.com/w20/es.png" alt="España">
-            <div>
-              <strong>12:00 - 14:00</strong><br>DJ Party
-            </div>
-          </div>
-        </div>
-        <div class="day-container">
-          <h3 class="day-title">Domingo</h3>
-          <div class="program-slot">
-            <img src="https://flagcdn.com/w20/es.png" alt="España">
-            <div>
-              <strong>9:00 - 11:00</strong><br>DJ Relax
-            </div>
-          </div>
-          <div class="program-slot">
-            <img src="https://flagcdn.com/w20/es.png" alt="España">
-            <div>
-              <strong>11:00 - 13:00</strong><br>DJ Chill
-            </div>
-          </div>
-        </div>
+<section id="weeklySchedule" class="schedule-week" style="display: none;">
+  <h2 class="section-title">Programación Semanal</h2>
+  <div class="days-grid">
+    <!-- Lunes -->
+    <div class="day-container">
+      <h3 class="day-title">Lunes</h3>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>0:00 - 1:00</strong> DJ Luna</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>1:00 - 2:00</strong> DJ Sol</div></div>
       </div>
-    </section>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>2:00 - 3:00</strong> DJ Echo</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>3:00 - 4:00</strong> DJ Nova</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>4:00 - 5:00</strong> DJ Pulse</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>5:00 - 6:00</strong> DJ Ray</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>6:00 - 7:00</strong> DJ Sky</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>7:00 - 8:00</strong> DJ Star</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>8:00 - 9:00</strong> DJ Moon</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>9:00 - 10:00</strong> DJ Fiesta</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>10:00 - 11:00</strong> DJ Party</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>11:00 - 12:00</strong> DJ Relax</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>12:00 - 13:00</strong> DJ Chill</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>13:00 - 14:00</strong> DJ Beat</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>14:00 - 15:00</strong> DJ Rhythm</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>15:00 - 16:00</strong> DJ Groove</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>16:00 - 17:00</strong> DJ Flow</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>17:00 - 18:00</strong> DJ Tempo</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>18:00 - 19:00</strong> DJ Harmony</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>19:00 - 20:00</strong> DJ Melody</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>20:00 - 21:00</strong> DJ Sonic</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>21:00 - 22:00</strong> DJ Wave</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>22:00 - 23:00</strong> DJ Echo</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>23:00 - 0:00</strong> DJ Luna</div></div>
+      </div>
+    </div>
 
+    <!-- Martes -->
+    <div class="day-container">
+      <h3 class="day-title">Martes</h3>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>0:00 - 1:00</strong> DJ Sol</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>1:00 - 2:00</strong> DJ Echo</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>2:00 - 3:00</strong> DJ Nova</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>3:00 - 4:00</strong> DJ Pulse</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>4:00 - 5:00</strong> DJ Ray</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>5:00 - 6:00</strong> DJ Sky</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>6:00 - 7:00</strong> DJ Star</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>7:00 - 8:00</strong> DJ Moon</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>8:00 - 9:00</strong> DJ Fiesta</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>9:00 - 10:00</strong> DJ Party</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>10:00 - 11:00</strong> DJ Relax</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>11:00 - 12:00</strong> DJ Chill</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>12:00 - 13:00</strong> DJ Beat</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>13:00 - 14:00</strong> DJ Rhythm</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>14:00 - 15:00</strong> DJ Groove</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>15:00 - 16:00</strong> DJ Flow</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>16:00 - 17:00</strong> DJ Tempo</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>17:00 - 18:00</strong> DJ Harmony</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>18:00 - 19:00</strong> DJ Melody</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>19:00 - 20:00</strong> DJ Sonic</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>20:00 - 21:00</strong> DJ Wave</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>21:00 - 22:00</strong> DJ Echo</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>22:00 - 23:00</strong> DJ Luna</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>23:00 - 0:00</strong> DJ Sol</div></div>
+      </div>
+    </div>
+
+    <!-- Miércoles -->
+    <div class="day-container">
+      <h3 class="day-title">Miércoles</h3>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>0:00 - 1:00</strong> DJ Echo</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>1:00 - 2:00</strong> DJ Nova</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>2:00 - 3:00</strong> DJ Pulse</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>3:00 - 4:00</strong> DJ Ray</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>4:00 - 5:00</strong> DJ Sky</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>5:00 - 6:00</strong> DJ Star</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>6:00 - 7:00</strong> DJ Moon</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>7:00 - 8:00</strong> DJ Fiesta</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>8:00 - 9:00</strong> DJ Party</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>9:00 - 10:00</strong> DJ Relax</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>10:00 - 11:00</strong> DJ Chill</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>11:00 - 12:00</strong> DJ Beat</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>12:00 - 13:00</strong> DJ Rhythm</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>13:00 - 14:00</strong> DJ Groove</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>14:00 - 15:00</strong> DJ Flow</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>15:00 - 16:00</strong> DJ Tempo</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>16:00 - 17:00</strong> DJ Harmony</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>17:00 - 18:00</strong> DJ Melody</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>18:00 - 19:00</strong> DJ Sonic</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>19:00 - 20:00</strong> DJ Wave</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>20:00 - 21:00</strong> DJ Echo</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>21:00 - 22:00</strong> DJ Luna</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>22:00 - 23:00</strong> DJ Sol</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>23:00 - 0:00</strong> DJ Echo</div></div>
+      </div>
+    </div>
+
+    <!-- Jueves -->
+    <div class="day-container">
+      <h3 class="day-title">Jueves</h3>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>0:00 - 1:00</strong> DJ Nova</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>1:00 - 2:00</strong> DJ Pulse</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>2:00 - 3:00</strong> DJ Ray</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>3:00 - 4:00</strong> DJ Sky</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>4:00 - 5:00</strong> DJ Star</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>5:00 - 6:00</strong> DJ Moon</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>6:00 - 7:00</strong> DJ Fiesta</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>7:00 - 8:00</strong> DJ Party</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>8:00 - 9:00</strong> DJ Relax</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>9:00 - 10:00</strong> DJ Chill</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>10:00 - 11:00</strong> DJ Beat</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>11:00 - 12:00</strong> DJ Rhythm</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>12:00 - 13:00</strong> DJ Groove</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>13:00 - 14:00</strong> DJ Flow</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>14:00 - 15:00</strong> DJ Tempo</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>15:00 - 16:00</strong> DJ Harmony</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>16:00 - 17:00</strong> DJ Melody</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>17:00 - 18:00</strong> DJ Sonic</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>18:00 - 19:00</strong> DJ Wave</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>19:00 - 20:00</strong> DJ Echo</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>20:00 - 21:00</strong> DJ Luna</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>21:00 - 22:00</strong> DJ Sol</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>22:00 - 23:00</strong> DJ Echo</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>23:00 - 0:00</strong> DJ Nova</div></div>
+      </div>
+    </div>
+
+    <!-- Viernes -->
+    <div class="day-container">
+      <h3 class="day-title">Viernes</h3>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>0:00 - 1:00</strong> DJ Pulse</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>1:00 - 2:00</strong> DJ Ray</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>2:00 - 3:00</strong> DJ Sky</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>3:00 - 4:00</strong> DJ Star</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>4:00 - 5:00</strong> DJ Moon</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>5:00 - 6:00</strong> DJ Fiesta</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>6:00 - 7:00</strong> DJ Party</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>7:00 - 8:00</strong> DJ Relax</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>8:00 - 9:00</strong> DJ Chill</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>9:00 - 10:00</strong> DJ Beat</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>10:00 - 11:00</strong> DJ Rhythm</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>11:00 - 12:00</strong> DJ Groove</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>12:00 - 13:00</strong> DJ Flow</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>13:00 - 14:00</strong> DJ Tempo</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>14:00 - 15:00</strong> DJ Harmony</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>15:00 - 16:00</strong> DJ Melody</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>16:00 - 17:00</strong> DJ Sonic</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>17:00 - 18:00</strong> DJ Wave</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>18:00 - 19:00</strong> DJ Echo</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>19:00 - 20:00</strong> DJ Luna</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>20:00 - 21:00</strong> DJ Sol</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>21:00 - 22:00</strong> DJ Echo</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>22:00 - 23:00</strong> DJ Nova</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>23:00 - 0:00</strong> DJ Pulse</div></div>
+      </div>
+    </div>
+
+    <!-- Sábado -->
+    <div class="day-container">
+      <h3 class="day-title">Sábado</h3>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>0:00 - 1:00</strong> DJ Ray</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>1:00 - 2:00</strong> DJ Sky</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>2:00 - 3:00</strong> DJ Star</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>3:00 - 4:00</strong> DJ Moon</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>4:00 - 5:00</strong> DJ Fiesta</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>5:00 - 6:00</strong> DJ Party</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>6:00 - 7:00</strong> DJ Relax</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>7:00 - 8:00</strong> DJ Chill</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>8:00 - 9:00</strong> DJ Beat</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>9:00 - 10:00</strong> DJ Rhythm</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>10:00 - 11:00</strong> DJ Groove</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>11:00 - 12:00</strong> DJ Flow</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>12:00 - 13:00</strong> DJ Tempo</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>13:00 - 14:00</strong> DJ Harmony</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>14:00 - 15:00</strong> DJ Melody</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>15:00 - 16:00</strong> DJ Sonic</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>16:00 - 17:00</strong> DJ Wave</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>17:00 - 18:00</strong> DJ Echo</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>18:00 - 19:00</strong> DJ Luna</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>19:00 - 20:00</strong> DJ Sol</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>20:00 - 21:00</strong> DJ Echo</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>21:00 - 22:00</strong> DJ Nova</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>22:00 - 23:00</strong> DJ Pulse</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>23:00 - 0:00</strong> DJ Ray</div></div>
+      </div>
+    </div>
+
+    <!-- Domingo -->
+    <div class="day-container">
+      <h3 class="day-title">Domingo</h3>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>0:00 - 1:00</strong> DJ Sky</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>1:00 - 2:00</strong> DJ Star</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>2:00 - 3:00</strong> DJ Moon</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>3:00 - 4:00</strong> DJ Fiesta</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>4:00 - 5:00</strong> DJ Party</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>5:00 - 6:00</strong> DJ Relax</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>6:00 - 7:00</strong> DJ Chill</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>7:00 - 8:00</strong> DJ Beat</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>8:00 - 9:00</strong> DJ Rhythm</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>9:00 - 10:00</strong> DJ Groove</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>10:00 - 11:00</strong> DJ Flow</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>11:00 - 12:00</strong> DJ Tempo</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>12:00 - 13:00</strong> DJ Harmony</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>13:00 - 14:00</strong> DJ Melody</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>14:00 - 15:00</strong> DJ Sonic</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>15:00 - 16:00</strong> DJ Wave</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>16:00 - 17:00</strong> DJ Echo</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>17:00 - 18:00</strong> DJ Luna</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>18:00 - 19:00</strong> DJ Sol</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>19:00 - 20:00</strong> DJ Echo</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>20:00 - 21:00</strong> DJ Nova</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>21:00 - 22:00</strong> DJ Pulse</div></div>
+      </div>
+      <div class="hour-row">
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>22:00 - 23:00</strong> DJ Ray</div></div>
+        <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>23:00 - 0:00</strong> DJ Sky</div></div>
+      </div>
+    </div>
+  </div>
+</section>
     <!-- Carrusel con tu imagen personalizada repetida 20 veces (10 + 10 para bucle infinito) -->
     <section class="carousel-section">
       <h2 class="section-title">Nuestro Equipo</h2>
@@ -588,4 +866,5 @@
 
 </body>
 </html>
+
 
