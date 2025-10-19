@@ -362,7 +362,7 @@
       <h2 class="section-title">Programación Semanal</h2>
       <div class="days-grid">
         <!-- Lunes -->
-        <div class="day-container">
+        <div class="day-container" data-day="1">
           <h3 class="day-title">Lunes</h3>
           <div class="hour-row">
             <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>0:00 - 1:00</strong> DJ Luna</div></div>
@@ -414,7 +414,7 @@
           </div>
         </div>
         <!-- Martes -->
-        <div class="day-container">
+        <div class="day-container" data-day="2">
           <h3 class="day-title">Martes</h3>
           <div class="hour-row">
             <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>0:00 - 1:00</strong> DJ Sol</div></div>
@@ -466,7 +466,7 @@
           </div>
         </div>
         <!-- Miércoles -->
-        <div class="day-container">
+        <div class="day-container" data-day="3">
           <h3 class="day-title">Miércoles</h3>
           <div class="hour-row">
             <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>0:00 - 1:00</strong> DJ Echo</div></div>
@@ -518,7 +518,7 @@
           </div>
         </div>
         <!-- Jueves -->
-        <div class="day-container">
+        <div class="day-container" data-day="4">
           <h3 class="day-title">Jueves</h3>
           <div class="hour-row">
             <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>0:00 - 1:00</strong> DJ Nova</div></div>
@@ -570,7 +570,7 @@
           </div>
         </div>
         <!-- Viernes -->
-        <div class="day-container">
+        <div class="day-container" data-day="5">
           <h3 class="day-title">Viernes</h3>
           <div class="hour-row">
             <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>0:00 - 1:00</strong> DJ Pulse</div></div>
@@ -622,7 +622,7 @@
           </div>
         </div>
         <!-- Sábado -->
-        <div class="day-container">
+        <div class="day-container" data-day="6">
           <h3 class="day-title">Sábado</h3>
           <div class="hour-row">
             <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>0:00 - 1:00</strong> DJ Ray</div></div>
@@ -674,7 +674,7 @@
           </div>
         </div>
         <!-- Domingo -->
-        <div class="day-container">
+        <div class="day-container" data-day="0">
           <h3 class="day-title">Domingo</h3>
           <div class="hour-row">
             <div class="program-slot"><img src="https://flagcdn.com/w20/mx.png" alt="México"><div><strong>0:00 - 1:00</strong> DJ Sky</div></div>
@@ -727,7 +727,7 @@
         </div>
       </div>
     </section>
-    <!-- Carrusel con tu imagen personalizada repetida 20 veces (10 + 10 para bucle infinito) -->
+    <!-- Carrusel -->
     <section class="carousel-section">
       <h2 class="section-title">Nuestro Equipo</h2>
       <div class="carousel-wrapper">
@@ -778,7 +778,9 @@
       <p>Designed by Castle</p>
     </footer>
   </div>
+
   <script>
+    // --- Toggle Chat y Programación (sin cambios) ---
     const toggleChatBtn = document.getElementById('toggleChatBtn');
     const chatContainer = document.getElementById('chatContainer');
     toggleChatBtn.addEventListener('click', () => {
@@ -804,50 +806,30 @@
         scheduleContainer.scrollIntoView({ behavior: 'smooth' });
       }
     });
-  </script>
-  <script>
-  // Función para obtener el día actual en la zona horaria de México
-  function getCurrentDayInMexico() {
-    const now = new Date();
-    const mexicoTime = new Intl.DateTimeFormat('es-MX', {
-      timeZone: 'America/Mexico_City',
-      weekday: 'long'
-    }).format(now);
 
-    // Mapeo del nombre del día en español a número (0-6)
-    const dayNames = [
-      'domingo', 'lunes', 'martes', 'miércoles',
-      'jueves', 'viernes', 'sábado'
-    ];
-    const dayIndex = dayNames.indexOf(mexicoTime.toLowerCase());
-    return dayIndex; // 0 a 6
-  }
+    // --- Mostrar solo el día actual en México ---
+    function getMexicoDayIndex() {
+      const now = new Date();
+      const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+      const mexicoOffset = -6; // UTC-6 (hora estándar de Ciudad de México)
+      const mexicoTime = new Date(utc + (mexicoOffset * 3600000));
+      return mexicoTime.getDay(); // 0 = dom, 1 = lun, ..., 6 = sáb
+    }
 
-  // Alternativa más directa usando getTimezoneOffset (más confiable para getDay)
-  function getMexicoDayIndex() {
-    const now = new Date();
-    const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-    const mexicoOffset = -6; // UTC-6 (hora estándar de Ciudad de México)
-    const mexicoTime = new Date(utc + (mexicoOffset * 3600000));
-    return mexicoTime.getDay(); // 0 = dom, 1 = lun, ..., 6 = sáb
-  }
+    document.addEventListener('DOMContentLoaded', () => {
+      const currentDay = getMexicoDayIndex();
+      const dayContainers = document.querySelectorAll('.day-container');
 
-  // Ocultar todos los días excepto el actual
-  document.addEventListener('DOMContentLoaded', () => {
-    const currentDay = getMexicoDayIndex(); // 0 a 6
-    const dayContainers = document.querySelectorAll('.day-container');
-
-    dayContainers.forEach(container => {
-      const dayAttr = parseInt(container.getAttribute('data-day'), 10);
-      if (dayAttr === currentDay) {
-        container.style.display = 'block';
-      } else {
-        container.style.display = 'none';
-      }
+      dayContainers.forEach(container => {
+        const dayAttr = parseInt(container.getAttribute('data-day'), 10);
+        if (dayAttr === currentDay) {
+          container.style.display = 'block';
+        } else {
+          container.style.display = 'none';
+        }
+      });
     });
-  });
-</script>
+  </script>
 </body>
 </html>
-
 
