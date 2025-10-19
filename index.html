@@ -1,161 +1,206 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Programación Semanal</title>
+  <script id='sonic_js' data-port='8004' src='https://sonic.sistemahost.es/cp/widgets.js?r=106'></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Secreto Musical - Radio Online</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  <!-- Favicon -->
+  <link rel="icon" href="https://i.imgur.com/0v4rgom.png" type="image/png">
   <style>
+    :root {
+      --dark-bg: #121212;
+      --dark-gray: #1e1e1e;
+      --light-gray: #2d2d2d;
+      --neon-turquoise: #00f5d4;
+      --neon-pink: #ff0080;
+      --text-light: #f0f0f0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: #f4f4f9;
+      font-family: 'Quicksand', sans-serif;
+      background-image: url('https://raw.githubusercontent.com/castlebud/Castlebud.github.io/refs/heads/main/28c574db-908c-495a-beca-f5aeb303b293.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      color: var(--text-light);
+      line-height: 1.6;
     }
-
-    h1 {
+    .overlay { background-color: rgba(8, 6, 12, 0.65); min-height: 100vh; padding-bottom: 2rem; }
+    header {
+      background-color: #19171e;
+      padding: 1.5rem 2rem 1rem;
       text-align: center;
-      color: #333;
+      border-bottom: 2px solid var(--neon-turquoise);
+      position: relative;
     }
-
-    #toggleScheduleBtn {
-      display: block;
-      margin: 0 auto 20px auto;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      background-color: #4caf50;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background 0.3s;
+    .header-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--text-light);
+      letter-spacing: 1.2px;
+      text-shadow: 0 0 12px rgba(0, 245, 212, 0.7);
+      margin-bottom: 1.2rem;
     }
-
-    #toggleScheduleBtn:hover {
-      background-color: #45a049;
-    }
-
-    .buttons {
+    .header-buttons {
       display: flex;
       justify-content: center;
+      gap: 1.2rem;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 20px;
     }
-
-    .buttons button {
-      padding: 8px 16px;
-      border: 1px solid #333;
-      border-radius: 6px;
-      background-color: #eee;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .buttons button:hover {
-      background-color: #ddd;
-    }
-
-    .buttons button.active {
-      background-color: #4caf50;
+    .toggle-chat-btn,
+    .toggle-schedule-btn {
+      background-color: rgba(0, 245, 212, 0.15);
       color: white;
-      font-weight: bold;
+      border: 1px solid var(--neon-turquoise);
+      padding: 0.5rem 1.1rem;
+      border-radius: 24px;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 8px rgba(0, 245, 212, 0.4);
+      box-shadow: 0 0 10px rgba(0, 245, 212, 0.3), 0 0 18px rgba(0, 245, 212, 0.2);
     }
-
-    #weeklySchedule {
-      display: none;
-      max-width: 600px;
-      margin: 0 auto;
+    .toggle-chat-btn:hover,
+    .toggle-schedule-btn:hover {
+      background-color: rgba(0, 245, 212, 0.25);
+      box-shadow: 0 0 14px rgba(0, 245, 212, 0.5), 0 0 24px rgba(0, 245, 212, 0.4);
     }
-
-    .day-block {
-      display: none;
-      margin-bottom: 10px;
-      padding: 15px;
-      border-radius: 8px;
-      background-color: #fff;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      border-left: 6px solid #4caf50;
-      transition: transform 0.2s;
+    .player-container {
+      padding: 2.5rem 2rem;
+      text-align: center;
+      background-color: rgba(40, 38, 48, 0.78);
+      margin: 2.5rem auto;
+      max-width: 700px;
+      border-radius: 18px;
+      border: 3px solid var(--neon-pink);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 20px rgba(255, 0, 128, 0.6), 0 0 30px rgba(255, 0, 128, 0.4);
     }
-
-    .day-block.current-day {
-      border-left-color: #ff5722;
-      background-color: #fff3e0;
-      transform: scale(1.02);
+    .player-container h2 {
+      margin-bottom: 1.2rem;
+      color: white;
+      font-size: 1.8rem;
+      text-shadow: 0 0 12px rgba(255, 0, 128, 0.8);
+    }
+    #sonic_dj { margin-top: 1.4rem; font-size: 1.5rem; color: white; text-align: center; text-shadow: 0 0 10px rgba(255, 0, 128, 0.7); font-weight: 600; }
+    #dj_profile { margin-top: 1.4rem; padding: 1.2rem; background-color: rgba(20, 18, 26, 0.7); border: 2px solid #fff01a; border-radius: 14px; color: white; font-size: 1.1rem; text-align: center; line-height: 1.5; box-shadow: 0 0 12px rgba(255, 240, 26, 0.6), 0 0 20px rgba(255, 240, 26, 0.4); backdrop-filter: blur(4px); text-shadow: 0 0 10px rgba(255, 255, 255, 0.7); }
+    .section-title { text-align: center; margin-bottom: 2rem; color: white; font-size: 2rem; text-shadow: 0 0 12px rgba(0, 245, 212, 0.8); }
+    .chat-container, .schedule-week { display: none; max-width: 700px; margin: 2rem auto; background-color: rgba(30, 28, 38, 0.85); border-radius: 16px; padding: 1.6rem; box-shadow: 0 0 18px rgba(0, 245, 212, 0.4), 0 0 30px rgba(0, 245, 212, 0.6); backdrop-filter: blur(6px); }
+    .chat-container h3 { color: white; margin-bottom: 1rem; text-shadow: 0 0 10px rgba(0, 245, 212, 0.5); }
+    .chat-container a { color: var(--neon-turquoise); text-decoration: none; }
+    .chat-container a:hover { text-decoration: underline; }
+    .days-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem; }
+    .day-container { background-color: rgba(40, 38, 48, 0.75); border-radius: 16px; padding: 1.5rem; border: 1px solid rgba(0, 245, 212, 0.3); backdrop-filter: blur(4px); box-shadow: 0 0 14px rgba(0, 245, 212, 0.35), 0 0 24px rgba(0, 245, 212, 0.5); }
+    .day-title { color: var(--neon-turquoise); font-size: 1.4rem; margin-bottom: 1rem; text-align: center; text-shadow: 0 0 8px rgba(0, 245, 212, 0.4); }
+    .hour-row { display: flex; gap: 12px; margin-bottom: 0.8rem; }
+    .hour-row .program-slot { flex: 1; display: flex; align-items: center; gap: 8px; padding: 0.6rem; border-radius: 10px; background-color: rgba(50, 48, 58, 0.4); text-align: left; }
+    .hour-row .program-slot img { width: 20px; height: auto; border-radius: 2px; }
+    .hour-row .program-slot div { flex: 1; }
+    .hour-row .program-slot strong { color: white; font-size: 0.95rem; display: block; }
+    @media (max-width: 900px) { .days-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) {
+      .days-grid { grid-template-columns: 1fr; }
+      .header-title { font-size: 2.2rem; }
+      .header-buttons { gap: 0.8rem; }
     }
   </style>
 </head>
 <body>
+  <div class="overlay">
+    <header>
+      <h1 class="header-title">Secreto Musical</h1>
+      <div class="header-buttons">
+        <button id="toggleChatBtn" class="toggle-chat-btn">Chat</button>
+        <button id="toggleScheduleBtn" class="toggle-schedule-btn">Programación</button>
+      </div>
+    </header>
 
-  <h1>Mi Programación Semanal</h1>
-
-  <button id="toggleScheduleBtn">Mostrar / Ocultar Programación</button>
-
-  <div id="weeklySchedule">
-    <div class="buttons">
-      <button class="day-toggle-btn" data-day="1">Lunes</button>
-      <button class="day-toggle-btn" data-day="2">Martes</button>
-      <button class="day-toggle-btn" data-day="3">Miércoles</button>
-      <button class="day-toggle-btn" data-day="4">Jueves</button>
-      <button class="day-toggle-btn" data-day="5">Viernes</button>
-      <button class="day-toggle-btn" data-day="6">Sábado</button>
-      <button class="day-toggle-btn" data-day="0">Domingo</button>
+    <div class="player-container">
+      <h2>Escúchanos en vivo</h2>
+      <div id="sonic_dj"></div>
+      <div id="dj_profile">
+        DJ: Secreto Musical<br>
+        Género: Electrónica, Chill, Dance<br>
+        Redes: @SecretoMusical
+      </div>
     </div>
 
-    <div class="day-block" data-day="1">Contenido del Lunes</div>
-    <div class="day-block" data-day="2">Contenido del Martes</div>
-    <div class="day-block" data-day="3">Contenido del Miércoles</div>
-    <div class="day-block" data-day="4">Contenido del Jueves</div>
-    <div class="day-block" data-day="5">Contenido del Viernes</div>
-    <div class="day-block" data-day="6">Contenido del Sábado</div>
-    <div class="day-block" data-day="0">Contenido del Domingo</div>
+    <!-- Contenedor del Chat -->
+    <div class="chat-container" id="chatContainer">
+      <h3>Únete a nuestro chat en vivo:</h3>
+      <a href="https://chat.secretomusical.com" target="_blank">Entrar al chat</a>
+    </div>
+
+    <!-- Contenedor de la programación semanal -->
+    <div class="schedule-week" id="weeklySchedule">
+      <h2 class="section-title">Programación Semanal</h2>
+      <div class="days-grid">
+        <div class="day-container">
+          <h3 class="day-title">Lunes</h3>
+          <div class="hour-row">
+            <div class="program-slot">
+              <img src="https://i.imgur.com/0v4rgom.png" alt="Lunes">
+              <div><strong>08:00 - 10:00</strong> Morning Chill</div>
+            </div>
+          </div>
+          <div class="hour-row">
+            <div class="program-slot">
+              <img src="https://i.imgur.com/0v4rgom.png" alt="Lunes">
+              <div><strong>18:00 - 20:00</strong> Dance Hour</div>
+            </div>
+          </div>
+        </div>
+        <div class="day-container">
+          <h3 class="day-title">Martes</h3>
+          <div class="hour-row">
+            <div class="program-slot">
+              <img src="https://i.imgur.com/0v4rgom.png" alt="Martes">
+              <div><strong>09:00 - 11:00</strong> Chill Vibes</div>
+            </div>
+          </div>
+        </div>
+        <div class="day-container">
+          <h3 class="day-title">Miércoles</h3>
+          <div class="hour-row">
+            <div class="program-slot">
+              <img src="https://i.imgur.com/0v4rgom.png" alt="Miércoles">
+              <div><strong>19:00 - 21:00</strong> Night Beats</div>
+            </div>
+          </div>
+        </div>
+        <!-- Añadir más días según se necesite -->
+      </div>
+    </div>
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const toggleScheduleBtn = document.getElementById('toggleScheduleBtn');
-      const weeklySchedule = document.getElementById('weeklySchedule');
-      const dayButtons = document.querySelectorAll('.day-toggle-btn');
-      const dayBlocks = document.querySelectorAll('.day-block');
+    const chatBtn = document.getElementById('toggleChatBtn');
+    const scheduleBtn = document.getElementById('toggleScheduleBtn');
+    const chatContainer = document.getElementById('chatContainer');
+    const weeklySchedule = document.getElementById('weeklySchedule');
 
-      // Función para mostrar solo un día
-      const showDay = (day) => {
-        dayBlocks.forEach(block => {
-          if (block.dataset.day == day) {
-            block.style.display = 'block';
-            block.classList.add('current-day');
-          } else {
-            block.style.display = 'none';
-            block.classList.remove('current-day');
-          }
-        });
+    chatBtn.addEventListener('click', () => {
+      if (chatContainer.style.display === 'none' || chatContainer.style.display === '') {
+        chatContainer.style.display = 'block';
+        weeklySchedule.style.display = 'none';
+      } else {
+        chatContainer.style.display = 'none';
+      }
+    });
 
-        dayButtons.forEach(btn => {
-          if (btn.dataset.day == day) {
-            btn.classList.add('active');
-          } else {
-            btn.classList.remove('active');
-          }
-        });
-      };
-
-      // Asociar botones de cada día
-      dayButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          showDay(btn.dataset.day);
-        });
-      });
-
-      // Mostrar automáticamente el día actual al cargar
-      const today = new Date().getDay(); // 0 = Domingo, 1 = Lunes...
-      showDay(today);
-      weeklySchedule.style.display = 'block';
-
-      // Mostrar / ocultar toda la programación
-      toggleScheduleBtn.addEventListener('click', () => {
-        weeklySchedule.style.display = weeklySchedule.style.display === 'none' ? 'block' : 'none';
-      });
+    scheduleBtn.addEventListener('click', () => {
+      if (weeklySchedule.style.display === 'none' || weeklySchedule.style.display === '') {
+        weeklySchedule.style.display = 'block';
+        chatContainer.style.display = 'none';
+      } else {
+        weeklySchedule.style.display = 'none';
+      }
     });
   </script>
-
 </body>
 </html>
