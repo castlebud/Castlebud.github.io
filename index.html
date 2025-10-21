@@ -71,19 +71,20 @@
 
     .toolbar button#chat-toggle {
       background: transparent;
-      color: white;
-      border: 2px solid white;
+      color: #39FF14; /* Texto en verde neón */
+      border: 2px solid #39FF14; /* Borde en verde neón */
       border-radius: 8px;
       padding: 10px 20px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 0 12px #40E0D0, 0 0 20px rgba(64, 224, 208, 0.6);
+      /* Brillo exterior en verde neón */
+      box-shadow: 0 0 12px #39FF14, 0 0 20px rgba(57, 255, 20, 0.6);
     }
 
     .toolbar button#chat-toggle:hover {
-      background: rgba(64, 224, 208, 0.1);
-      box-shadow: 0 0 18px #40E0D0, 0 0 30px rgba(64, 224, 208, 0.8);
+      background: rgba(57, 255, 20, 0.1);
+      box-shadow: 0 0 18px #39FF14, 0 0 30px rgba(57, 255, 20, 0.8);
     }
 
     main {
@@ -182,7 +183,6 @@
       max-width: 1000px;
       margin: 20px auto;
       display: none;
-      /* Estilo con borde y brillo verde neón */
       border: 3px solid #39FF14;
       border-radius: 12px;
       box-shadow: 0 0 20px #39FF14, 0 0 30px rgba(57, 255, 20, 0.6);
