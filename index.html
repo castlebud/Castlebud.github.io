@@ -204,6 +204,7 @@
       border: 3px solid #39FF14;
       border-radius: 12px;
       box-shadow: 0 0 20px #39FF14, 0 0 30px rgba(57, 255, 20, 0.6);
+      position: relative;
     }
 
     #chat-container iframe {
@@ -305,6 +306,35 @@
       box-shadow: 0 0 30px #DA70D6;
     }
 
+    /* Botón de cierre fijo (para chat y programación) */
+    #close-overlay-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #FF0000;
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      font-weight: bold;
+      font-size: 18px;
+      cursor: pointer;
+      display: none; /* oculto por defecto */
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 12px #FF0000, 0 0 20px rgba(255, 0, 0, 0.7);
+      z-index: 999;
+      transition: all 0.2s ease;
+    }
+
+    #close-overlay-btn:hover {
+      background: #cc0000;
+      box-shadow: 0 0 16px #FF0000, 0 0 28px rgba(255, 0, 0, 0.9);
+      transform: scale(1.1);
+    }
+
+    /* Botón de cierre dentro del modal (mantenido) */
     .close-btn {
       position: absolute;
       top: 20px;
@@ -457,6 +487,7 @@
         max-width: 100px;
         height: 100px;
       }
+      #close-overlay-btn,
       .close-btn {
         top: 15px;
         right: 15px;
@@ -526,7 +557,6 @@
     ></iframe>
   </div>
 
-  <!-- Sección de Programación (oculta por defecto) -->
   <div id="programming-section">
     <h2 class="programming-title">Programación</h2>
     <div class="programming-container">
@@ -565,6 +595,9 @@
     <button class="close-btn" id="close-modal">×</button>
     <img class="modal-content" id="modal-img">
   </div>
+
+  <!-- Botón de cierre fijo para chat y programación -->
+  <button id="close-overlay-btn">×</button>
 
   <h2 class="carousel-title">Staff</h2>
   <div class="carousel-container">
@@ -627,9 +660,22 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Toggle Chat
       const toggleBtn = document.getElementById('chat-toggle');
+      const progToggleBtn = document.getElementById('prog-toggle');
       const chatContainer = document.getElementById('chat-container');
+      const progSection = document.getElementById('programming-section');
+      const closeOverlayBtn = document.getElementById('close-overlay-btn');
+
+      function updateCloseButton() {
+        const chatVisible = chatContainer.style.display === 'block';
+        const progVisible = progSection.style.display === 'block';
+        if (chatVisible || progVisible) {
+          closeOverlayBtn.style.display = 'flex';
+        } else {
+          closeOverlayBtn.style.display = 'none';
+        }
+      }
+
       toggleBtn.addEventListener('click', function() {
         const isVisible = chatContainer.style.display === 'block';
         if (isVisible) {
@@ -640,11 +686,9 @@
           toggleBtn.textContent = 'Ocultar Chat';
           chatContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+        updateCloseButton();
       });
 
-      // Toggle Programación
-      const progToggleBtn = document.getElementById('prog-toggle');
-      const progSection = document.getElementById('programming-section');
       progToggleBtn.addEventListener('click', function() {
         const isVisible = progSection.style.display === 'block';
         if (isVisible) {
@@ -655,6 +699,20 @@
           progToggleBtn.textContent = 'Ocultar Programación';
           progSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+        updateCloseButton();
+      });
+
+      closeOverlayBtn.addEventListener('click', function() {
+        // Cerrar ambos si están abiertos, pero priorizar el visible
+        if (chatContainer.style.display === 'block') {
+          chatContainer.style.display = 'none';
+          toggleBtn.textContent = 'Chat';
+        }
+        if (progSection.style.display === 'block') {
+          progSection.style.display = 'none';
+          progToggleBtn.textContent = 'Programación';
+        }
+        closeOverlayBtn.style.display = 'none';
       });
     });
   </script>
