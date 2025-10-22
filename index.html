@@ -519,7 +519,7 @@
 
   <main>
     <div class="left-column">
-      <div class="player-container">
+      <div class="player-container" id="music-player-container">
         <h2>Reproductor Musical</h2>
         <div id="stream" style="width:auto; height:300px;"></div>
         <div id="sonic_title"></div>
@@ -665,6 +665,7 @@
       const chatContainer = document.getElementById('chat-container');
       const progSection = document.getElementById('programming-section');
       const closeOverlayBtn = document.getElementById('close-overlay-btn');
+      const musicPlayerContainer = document.querySelector('.player-container');
 
       function updateCloseButton() {
         const chatVisible = chatContainer.style.display === 'block';
@@ -703,14 +704,20 @@
       });
 
       closeOverlayBtn.addEventListener('click', function() {
-        // Cerrar ambos si están abiertos, pero priorizar el visible
+        let wasClosed = false;
         if (chatContainer.style.display === 'block') {
           chatContainer.style.display = 'none';
           toggleBtn.textContent = 'Chat';
+          wasClosed = true;
         }
         if (progSection.style.display === 'block') {
           progSection.style.display = 'none';
           progToggleBtn.textContent = 'Programación';
+          wasClosed = true;
+        }
+        if (wasClosed) {
+          // Desplazar suavemente al contenedor del reproductor
+          musicPlayerContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
         closeOverlayBtn.style.display = 'none';
       });
