@@ -69,22 +69,40 @@
       margin-left: calc(-50vw + 50%);
     }
 
-    .toolbar button#chat-toggle {
+    .toolbar button {
       background: transparent;
-      color: #39FF14; /* Texto en verde neón */
-      border: 2px solid #39FF14; /* Borde en verde neón */
       border-radius: 8px;
       padding: 10px 20px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      /* Brillo exterior en verde neón */
+    }
+
+    .toolbar button#chat-toggle {
+      color: #39FF14;
+      border: 2px solid #39FF14;
       box-shadow: 0 0 12px #39FF14, 0 0 20px rgba(57, 255, 20, 0.6);
     }
 
     .toolbar button#chat-toggle:hover {
       background: rgba(57, 255, 20, 0.1);
       box-shadow: 0 0 18px #39FF14, 0 0 30px rgba(57, 255, 20, 0.8);
+    }
+
+    /* Botón de Programación - Morado Neón */
+    .toolbar button#prog-toggle {
+      color: #DA70D6;
+      border: 2px solid #DA70D6;
+      box-shadow: 
+        0 0 12px #DA70D6,
+        0 0 20px rgba(218, 112, 214, 0.6);
+    }
+
+    .toolbar button#prog-toggle:hover {
+      background: rgba(218, 112, 214, 0.1);
+      box-shadow: 
+        0 0 18px #DA70D6,
+        0 0 30px rgba(218, 112, 214, 0.8);
     }
 
     main {
@@ -196,7 +214,124 @@
       box-shadow: 0 0 20px rgba(64, 224, 208, 0.5);
     }
 
-    /* Estilo para el título dinámico del reproductor */
+    /* Contenedor de Programación - oculto por defecto */
+    #programming-section {
+      display: none;
+    }
+
+    .programming-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: white;
+      text-align: center;
+      margin: 30px auto 15px;
+      width: 100vw;
+      margin-left: calc(-50vw + 50%);
+      text-shadow: 
+        0 0 12px #DA70D6,
+        0 0 20px #DA70D6,
+        0 0 30px rgba(218, 112, 214, 0.7);
+    }
+
+    .programming-container {
+      background-color: rgba(0, 0, 0, 0.5);
+      border: 3px solid #DA70D6;
+      box-shadow: 
+        0 0 20px #DA70D6,
+        inset 0 0 20px #DA70D6;
+      border-radius: 12px;
+      padding: 25px;
+      width: 90%;
+      max-width: 1000px;
+      margin: 0 auto 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 15px;
+      justify-items: center;
+    }
+
+    .day-item {
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .day-item img {
+      width: 100%;
+      max-width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border: 3px solid #DA70D6;
+      border-radius: 8px;
+      box-shadow: 
+        0 0 15px #DA70D6,
+        0 0 25px rgba(218, 112, 214, 0.6);
+      display: block;
+      transition: transform 0.2s ease;
+    }
+
+    .day-item img:hover {
+      transform: scale(1.05);
+    }
+
+    .day-item span {
+      display: block;
+      margin-top: 8px;
+      font-weight: 600;
+      color: #DA70D6;
+      text-shadow: 
+        0 0 8px #DA70D6,
+        0 0 14px rgba(218, 112, 214, 0.7);
+    }
+
+    /* Modal de imagen ampliada */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border: 3px solid #DA70D6;
+      box-shadow: 0 0 30px #DA70D6;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #FF0000;
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      font-weight: bold;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 12px #FF0000, 0 0 20px rgba(255, 0, 0, 0.7);
+      z-index: 1001;
+      transition: all 0.2s ease;
+    }
+
+    .close-btn:hover {
+      background: #cc0000;
+      box-shadow: 0 0 16px #FF0000, 0 0 28px rgba(255, 0, 0, 0.9);
+      transform: scale(1.1);
+    }
+
     #sonic_title {
       margin-top: 20px;
       font-size: 1.4rem;
@@ -302,7 +437,8 @@
         font-size: 2.2rem;
         white-space: normal;
       }
-      .carousel-title {
+      .carousel-title,
+      .programming-title {
         font-size: 1.8rem;
         margin: 25px auto 12px;
         width: 100vw;
@@ -312,6 +448,21 @@
         min-width: 160px;
         height: 120px;
         margin: 0;
+      }
+      .programming-container {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        padding: 20px;
+      }
+      .day-item img {
+        max-width: 100px;
+        height: 100px;
+      }
+      .close-btn {
+        top: 15px;
+        right: 15px;
+        width: 28px;
+        height: 28px;
+        font-size: 16px;
       }
       @keyframes scroll {
         100% { transform: translateX(calc(-160px * 10)); }
@@ -332,10 +483,10 @@
 
   <div class="toolbar">
     <button id="chat-toggle">Chat</button>
+    <button id="prog-toggle">Programación</button>
   </div>
 
   <main>
-    <!-- Columna izquierda: solo reproductor -->
     <div class="left-column">
       <div class="player-container">
         <h2>Reproductor Musical</h2>
@@ -344,7 +495,6 @@
       </div>
     </div>
 
-    <!-- Columna derecha: Portada DJ arriba, Noticias abajo -->
     <div class="right-column">
       <div class="portada-dj">
         <h2>Portada DJ</h2>
@@ -376,6 +526,46 @@
     ></iframe>
   </div>
 
+  <!-- Sección de Programación (oculta por defecto) -->
+  <div id="programming-section">
+    <h2 class="programming-title">Programación</h2>
+    <div class="programming-container">
+      <div class="day-item" data-img="https://picsum.photos/id/11/800/600">
+        <img src="https://picsum.photos/id/11/120/120" alt="Lunes">
+        <span>Lunes</span>
+      </div>
+      <div class="day-item" data-img="https://picsum.photos/id/12/800/600">
+        <img src="https://picsum.photos/id/12/120/120" alt="Martes">
+        <span>Martes</span>
+      </div>
+      <div class="day-item" data-img="https://picsum.photos/id/13/800/600">
+        <img src="https://picsum.photos/id/13/120/120" alt="Miércoles">
+        <span>Miércoles</span>
+      </div>
+      <div class="day-item" data-img="https://picsum.photos/id/14/800/600">
+        <img src="https://picsum.photos/id/14/120/120" alt="Jueves">
+        <span>Jueves</span>
+      </div>
+      <div class="day-item" data-img="https://picsum.photos/id/15/800/600">
+        <img src="https://picsum.photos/id/15/120/120" alt="Viernes">
+        <span>Viernes</span>
+      </div>
+      <div class="day-item" data-img="https://picsum.photos/id/16/800/600">
+        <img src="https://picsum.photos/id/16/120/120" alt="Sábado">
+        <span>Sábado</span>
+      </div>
+      <div class="day-item" data-img="https://picsum.photos/id/17/800/600">
+        <img src="https://picsum.photos/id/17/120/120" alt="Domingo">
+        <span>Domingo</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="image-modal" class="modal">
+    <button class="close-btn" id="close-modal">×</button>
+    <img class="modal-content" id="modal-img">
+  </div>
+
   <h2 class="carousel-title">Staff</h2>
   <div class="carousel-container">
     <div class="carousel-track">
@@ -389,7 +579,6 @@
       <div class="carousel-slide"><img src="https://picsum.photos/id/8/200/150" alt="Staff 8"></div>
       <div class="carousel-slide"><img src="https://picsum.photos/id/9/200/150" alt="Staff 9"></div>
       <div class="carousel-slide"><img src="https://picsum.photos/id/10/200/150" alt="Staff 10"></div>
-      <!-- Duplicado para efecto infinito -->
       <div class="carousel-slide"><img src="https://picsum.photos/id/1/200/150" alt="Staff 1"></div>
       <div class="carousel-slide"><img src="https://picsum.photos/id/2/200/150" alt="Staff 2"></div>
       <div class="carousel-slide"><img src="https://picsum.photos/id/3/200/150" alt="Staff 3"></div>
@@ -407,7 +596,6 @@
     Copyright © 2025 | Secreto Musical
   </footer>
 
-  <!-- Scripts del reproductor -->
   <script src="https://sistemahost.com/playergenerator/js/jquery-3.2.1.min.js"></script>
   <script src="https://sistemahost.com/playergenerator/js/player.js"></script>
   <script> 
@@ -437,12 +625,11 @@
     }); 
   </script>
 
-  <!-- Script del chat -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // Toggle Chat
       const toggleBtn = document.getElementById('chat-toggle');
       const chatContainer = document.getElementById('chat-container');
-
       toggleBtn.addEventListener('click', function() {
         const isVisible = chatContainer.style.display === 'block';
         if (isVisible) {
@@ -452,6 +639,54 @@
           chatContainer.style.display = 'block';
           toggleBtn.textContent = 'Ocultar Chat';
           chatContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+
+      // Toggle Programación
+      const progToggleBtn = document.getElementById('prog-toggle');
+      const progSection = document.getElementById('programming-section');
+      progToggleBtn.addEventListener('click', function() {
+        const isVisible = progSection.style.display === 'block';
+        if (isVisible) {
+          progSection.style.display = 'none';
+          progToggleBtn.textContent = 'Programación';
+        } else {
+          progSection.style.display = 'block';
+          progToggleBtn.textContent = 'Ocultar Programación';
+          progSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const dayItems = document.querySelectorAll('.day-item');
+      const modal = document.getElementById('image-modal');
+      const modalImg = document.getElementById('modal-img');
+      const closeBtn = document.getElementById('close-modal');
+
+      dayItems.forEach(item => {
+        item.addEventListener('click', function() {
+          const fullImg = this.getAttribute('data-img');
+          modalImg.src = fullImg;
+          modal.style.display = 'flex';
+        });
+      });
+
+      closeBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+      });
+
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.style.display === 'flex') {
+          modal.style.display = 'none';
         }
       });
     });
