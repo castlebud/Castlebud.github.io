@@ -90,7 +90,6 @@
       box-shadow: 0 0 18px #39FF14, 0 0 30px rgba(57, 255, 20, 0.8);
     }
 
-    /* Botón de Programación - Morado Neón */
     .toolbar button#prog-toggle {
       color: #DA70D6;
       border: 2px solid #DA70D6;
@@ -107,9 +106,8 @@
     }
 
     main {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 20px;
       padding: 30px 15px;
       max-width: 1000px;
@@ -117,22 +115,22 @@
       width: 100%;
     }
 
-    .left-column {
-      flex: 1;
-      min-width: 0;
-    }
+    /* Orden en escritorio usando grid-area */
+    .player-container { grid-area: player; }
+    .portada-dj { grid-area: dj; }
+    .news-container { grid-area: news; }
+    .socials-container { grid-area: socials; }
 
-    .right-column {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      flex: 1;
-      min-width: 0;
+    main {
+      grid-template-areas:
+        "player dj"
+        "socials news";
     }
 
     .player-container,
     .portada-dj,
-    .news-container {
+    .news-container,
+    .socials-container {
       background-color: rgba(0, 0, 0, 0.5);
       border-radius: 12px;
       padding: 25px;
@@ -172,20 +170,27 @@
       box-shadow: 0 0 20px #40E0D0, inset 0 0 20px #40E0D0;
     }
 
+    .socials-container {
+      border: 3px solid #40E0D0;
+      box-shadow: 
+        0 0 20px #40E0D0,
+        inset 0 0 20px #40E0D0;
+      margin-top: 0; /* ya no necesita margen extra */
+    }
+
     .player-container h2,
-    .news-container h2 {
+    .news-container h2,
+    .socials-container h2 {
       margin-bottom: 15px;
     }
 
-    /* Título "Noticias y Anuncios" con borde turquesa + brillo exterior blanco */
-    .news-container h2 {
+    .news-container h2,
+    .socials-container h2 {
       color: white;
       text-shadow: 
-        /* Borde turquesa (simulado) */
         0 0 2px #40E0D0,
         0 0 4px #40E0D0,
         0 0 6px #40E0D0,
-        /* Brillo exterior blanco */
         0 0 12px white,
         0 0 20px white,
         0 0 30px rgba(255, 255, 255, 0.7);
@@ -207,6 +212,39 @@
       padding-bottom: 25px;
     }
 
+    .socials-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .social-item {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 15px;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+    }
+
+    .social-item img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border: 2px solid #40E0D0;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #40E0D0, 0 0 15px rgba(64, 224, 208, 0.5);
+    }
+
+    .social-item span {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      text-shadow: 0 0 8px white, 0 0 12px rgba(255, 255, 255, 0.7);
+    }
+
     #chat-container {
       width: 90%;
       max-width: 1000px;
@@ -226,12 +264,10 @@
       box-shadow: 0 0 20px rgba(64, 224, 208, 0.5);
     }
 
-    /* Contenedor de Programación - oculto por defecto */
     #programming-section {
       display: none;
     }
 
-    /* Título "Staff" con borde turquesa + brillo exterior blanco */
     .carousel-title {
       font-size: 2.2rem;
       font-weight: 700;
@@ -241,17 +277,14 @@
       width: 100vw;
       margin-left: calc(-50vw + 50%);
       text-shadow: 
-        /* Borde turquesa (simulado) */
         0 0 2px #40E0D0,
         0 0 4px #40E0D0,
         0 0 6px #40E0D0,
-        /* Brillo exterior blanco */
         0 0 12px white,
         0 0 20px white,
         0 0 30px rgba(255, 255, 255, 0.7);
     }
 
-    /* Título "Programación" sin cambios (morado) */
     .programming-title {
       font-size: 2.2rem;
       font-weight: 700;
@@ -316,7 +349,6 @@
         0 0 14px rgba(218, 112, 214, 0.7);
     }
 
-    /* Modal de imagen ampliada */
     .modal {
       display: none;
       position: fixed;
@@ -338,7 +370,6 @@
       box-shadow: 0 0 30px #DA70D6;
     }
 
-    /* Botón de cierre fijo (para chat y programación) */
     #close-overlay-btn {
       position: fixed;
       top: 20px;
@@ -366,7 +397,6 @@
       transform: scale(1.1);
     }
 
-    /* Botón de cierre dentro del modal (mantenido) */
     .close-btn {
       position: absolute;
       top: 20px;
@@ -469,22 +499,25 @@
       margin-left: calc(-50vw + 50%);
     }
 
+    /* --- Responsive: Móviles --- */
     @media (max-width: 900px) {
       main {
+        display: flex;
         flex-direction: column;
-        align-items: center;
+        grid-template-areas: none; /* reset */
         padding: 20px 10px;
       }
-      .left-column,
-      .right-column {
-        width: 100%;
-        flex: none;
-      }
+
+      /* En móviles, el orden natural del DOM se respeta */
       .player-container,
       .portada-dj,
-      .news-container {
+      .news-container,
+      .socials-container {
         max-width: 500px;
+        width: 100%;
+        margin-bottom: 20px;
       }
+
       h1 {
         font-size: 2.2rem;
         white-space: normal;
@@ -508,6 +541,14 @@
       .day-item img {
         max-width: 100px;
         height: 100px;
+      }
+      .social-item {
+        flex-direction: column;
+        text-align: center;
+      }
+      .social-item img {
+        width: 60px;
+        height: 60px;
       }
       #close-overlay-btn,
       .close-btn {
@@ -541,28 +582,44 @@
   </div>
 
   <main>
-    <div class="left-column">
-      <div class="player-container" id="music-player-container">
-        <div id="stream" style="width:auto; height:300px;"></div>
-        <div id="sonic_title"></div>
+    <!-- Ahora todos los contenedores están al mismo nivel -->
+    <div class="player-container" id="music-player-container">
+      <div id="stream" style="width:auto; height:300px;"></div>
+      <div id="sonic_title"></div>
+    </div>
+
+    <div class="portada-dj">
+      <h2>Portada DJ</h2>
+      <div id="sonic_dj"></div>
+      <div id="dj_profile"></div>
+    </div>
+
+    <div class="news-container">
+      <h2>Noticias y Anuncios</h2>
+      <div class="news-item">
+        <h3>¡Gran inauguración de Secreto Musical!</h3>
+        <p>Unete a la fiesta con nosotros".</p>
+      </div>
+      <div class="news-item">
+        <h3>¿Quieres formar parte de nuestro staff?</h3>
+        <p>Más información próximamente.</p>
       </div>
     </div>
 
-    <div class="right-column">
-      <div class="portada-dj">
-        <div id="sonic_dj"></div>
-        <div id="dj_profile"></div>
-      </div>
-
-      <div class="news-container">
-        <h2>Noticias y Anuncios</h2>
-        <div class="news-item">
-          <h3>¡Gran inauguración de Secreto Musical!</h3>
-          <p>Unete a la fiesta con nosotros".</p>
+    <div class="socials-container">
+      <h2>Redes Sociales</h2>
+      <div class="socials-list">
+        <div class="social-item">
+          <img src="img/red1.png" alt="Red 1">
+          <span>Síguenos en Instagram</span>
         </div>
-        <div class="news-item">
-          <h3>¿Quieres formar parte de nuestro staff?</h3>
-          <p>Más información próximamente.</p>
+        <div class="social-item">
+          <img src="img/red2.png" alt="Red 2">
+          <span>Únete a nuestro Discord</span>
+        </div>
+        <div class="social-item">
+          <img src="img/red3.png" alt="Red 3">
+          <span>Mira en YouTube</span>
         </div>
       </div>
     </div>
@@ -617,7 +674,6 @@
     <img class="modal-content" id="modal-img">
   </div>
 
-  <!-- Botón de cierre fijo para chat y programación -->
   <button id="close-overlay-btn">×</button>
 
   <h2 class="carousel-title">Staff</h2>
@@ -656,7 +712,7 @@
     $('#stream').lunaradio({     
       streamurl: 'https://sonic.sistemahost.es/8004', 
       radioname: '', 
-      coverimage: 'img/1761108655459.gif', 
+      coverimage: 'img/fondorepro.gif', 
       onlycoverimage: false,     
       userinterface: 'big',     
       backgroundcolor: '#000000', 
