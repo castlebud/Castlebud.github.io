@@ -237,22 +237,25 @@
       padding: 10px;
       background: rgba(0, 0, 0, 0.3);
       border-radius: 8px;
+      /* Estilos base sobrescritos por clases específicas */
     }
 
     .social-item img {
       width: 50px;
       height: 50px;
       object-fit: cover;
-      border: 2px solid #40E0D0;
       border-radius: 8px;
-      box-shadow: 0 0 10px #40E0D0, 0 0 15px rgba(64, 224, 208, 0.5);
     }
 
-    /* 🔹 Nuevos estilos para los textos actualizados */
-    .social-item span {
-      font-size: 1.1rem;
-      font-weight: 600;
-      display: block;
+    /* 🔹 Estilos específicos para cada red social */
+    .social-whatsapp {
+      border: 2px solid #39FF14;
+      box-shadow: 0 0 12px #39FF14, 0 0 20px rgba(57, 255, 20, 0.7);
+    }
+
+    .social-whatsapp img {
+      border: 2px solid #39FF14;
+      box-shadow: 0 0 10px #39FF14, 0 0 15px rgba(57, 255, 20, 0.5);
     }
 
     .social-whatsapp span {
@@ -262,6 +265,16 @@
         0 0 14px rgba(57, 255, 20, 0.8);
     }
 
+    .social-telegram {
+      border: 2px solid #00FFFF;
+      box-shadow: 0 0 12px #00FFFF, 0 0 20px rgba(0, 255, 255, 0.7);
+    }
+
+    .social-telegram img {
+      border: 2px solid #00FFFF;
+      box-shadow: 0 0 10px #00FFFF, 0 0 15px rgba(0, 255, 255, 0.5);
+    }
+
     .social-telegram span {
       color: #00FFFF;
       text-shadow: 
@@ -269,8 +282,18 @@
         0 0 14px rgba(0, 255, 255, 0.8);
     }
 
+    .social-teams {
+      border: 2px solid #BF00FF;
+      box-shadow: 0 0 12px #BF00FF, 0 0 20px rgba(191, 0, 255, 0.7);
+    }
+
+    .social-teams img {
+      border: 2px solid #BF00FF;
+      box-shadow: 0 0 10px #BF00FF, 0 0 15px rgba(191, 0, 255, 0.5);
+    }
+
     .social-teams span {
-      color: #BF00FF; /* Morado más neón */
+      color: #BF00FF;
       text-shadow: 
         0 0 8px #BF00FF,
         0 0 14px rgba(191, 0, 255, 0.8);
