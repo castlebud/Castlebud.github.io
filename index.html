@@ -177,10 +177,18 @@
       margin-bottom: 15px;
     }
 
-    /* Título "Noticias y Anuncios" ahora con brillo exterior blanco */
+    /* Título "Noticias y Anuncios" con borde turquesa + brillo exterior blanco */
     .news-container h2 {
       color: white;
-      text-shadow: 0 0 12px white, 0 0 20px white, 0 0 30px rgba(255, 255, 255, 0.7);
+      text-shadow: 
+        /* Borde turquesa (simulado) */
+        0 0 2px #40E0D0,
+        0 0 4px #40E0D0,
+        0 0 6px #40E0D0,
+        /* Brillo exterior blanco */
+        0 0 12px white,
+        0 0 20px white,
+        0 0 30px rgba(255, 255, 255, 0.7);
     }
 
     .news-item {
@@ -223,7 +231,7 @@
       display: none;
     }
 
-    /* Título "Staff" ahora con brillo exterior blanco */
+    /* Título "Staff" con borde turquesa + brillo exterior blanco */
     .carousel-title {
       font-size: 2.2rem;
       font-weight: 700;
@@ -232,7 +240,15 @@
       margin: 30px auto 15px;
       width: 100vw;
       margin-left: calc(-50vw + 50%);
-      text-shadow: 0 0 12px white, 0 0 20px white, 0 0 30px rgba(255, 255, 255, 0.7);
+      text-shadow: 
+        /* Borde turquesa (simulado) */
+        0 0 2px #40E0D0,
+        0 0 4px #40E0D0,
+        0 0 6px #40E0D0,
+        /* Brillo exterior blanco */
+        0 0 12px white,
+        0 0 20px white,
+        0 0 30px rgba(255, 255, 255, 0.7);
     }
 
     /* Título "Programación" sin cambios (morado) */
